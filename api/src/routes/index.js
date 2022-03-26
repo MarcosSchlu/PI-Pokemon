@@ -51,13 +51,13 @@ const getInfo = async () => {
 
 
 router.get('/pokemons', async ( req, res ) => {
-  const name = req.query.name
-  let pokemosTotales = await getInfo ();
+  const {name} = req.query
+  let pokemonsTotales = await getInfo ();
   if (name) {
-    let pokemonName = await pokemosTotales.includes( pokemons => pokemons.name.toLowerCase().includes(name))
-    pokemonName.lenght ? res.status(200).send(pokemonName) : res.status(400).send('No existe el Pokemon')
+    let pokemonBuscado = await pokemonsTotales.filter( pokemons => pokemons.name.toLowerCase().includes(name.toLowerCase()))
+    pokemonBuscado.lenght ? res.status(200).send(pokemonBuscado) : res.status(400).send('No existe el Pokemon')
   } else {
-    res.status(200).send(pokemosTotales)
+    res.status(200).send(pokemonsTotales)
   }
 })
 
