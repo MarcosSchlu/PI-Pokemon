@@ -10,11 +10,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    idPokemon: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-    },
-    nombre: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -35,6 +31,11 @@ module.exports = (sequelize) => {
     },
     peso: {
       type: DataTypes.INTEGER,
+    },
+    db: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     },
   });
 };
