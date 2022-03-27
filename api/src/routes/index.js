@@ -90,4 +90,19 @@ router.post('/pokemons', async (req,res) => {
   res.send('Pokemon creado con exito')
 })
 
+router.get('/pokemons/:id', async (req, res) => {
+  const id = req.params.id
+  const pokemonsTotales = await getInfo()
+  if (id) {
+    let pokemonBuscado = await pokemonsTotales.filter( pokemons => pokemons.id == id)
+    if (pokemonBuscado.length){
+      res.status(200).send(pokemonBuscado)
+    } else {
+      res.status(404).send('No se encontro el Pokemon')
+    }
+  } else {
+    res.status(200).send(pokemonsTotales)
+  }
+})
+
 module.exports = router;
