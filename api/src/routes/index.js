@@ -11,7 +11,7 @@ const router = Router();
 // MARCOS
 // FUNCION ASYNCONA QUE TRAE TODA LA INFORMACION DE LA API y DE LA BASE DE DATOS (ICLUYENDO LOS TIPOS POR EL ATRIBUTO NOMBRE)
 const getInfo = async () => {
-  const api = await fetch('https://pokeapi.co/api/v2/pokemon?limit=2')
+  const api = await fetch('https://pokeapi.co/api/v2/pokemon?limit=40')
   const infoApi = await api.json()
   const infoDB = await Pokemon.findAll({ include: Tipo })
 
@@ -55,10 +55,26 @@ router.get('/pokemons', async ( req, res ) => {
   let pokemonsTotales = await getInfo ();
   if (name) {
     let pokemonBuscado = await pokemonsTotales.filter( pokemons => pokemons.name.toLowerCase().includes(name.toLowerCase()))
-    pokemonBuscado.lenght ? res.status(200).send(pokemonBuscado) : res.status(400).send('No existe el Pokemon')
+    if (pokemonBuscado.length){
+      res.status(200).send(pokemonBuscado)
+    } else {
+      res.status(400).send('No existe el Pokemon')
+    }
   } else {
     res.status(200).send(pokemonsTotales)
   }
+})
+
+router.get('/types', async (req, res) => {
+  const api = await fetch('https://pokeapi.co/api/v2/type')
+  const tipos = await api.json()
+  for (tipo of tipos.results) {
+    Tipo.findOrCreate({
+      where: { nombre: tipo.name}
+    })
+  }
+  const todosLosTipos = await Tipo.findAll()
+  res.send(todosLosTipos)
 })
 
 module.exports = router;
