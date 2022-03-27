@@ -11,7 +11,7 @@ const router = Router();
 // MARCOS
 // FUNCION ASYNCONA QUE TRAE TODA LA INFORMACION DE LA API y DE LA BASE DE DATOS (ICLUYENDO LOS TIPOS POR EL ATRIBUTO NOMBRE)
 const getInfo = async () => {
-  const api = await fetch('https://pokeapi.co/api/v2/pokemon?limit=40')
+  const api = await fetch('https://pokeapi.co/api/v2/pokemon?limit=5')
   const infoApi = await api.json()
   const infoDB = await Pokemon.findAll({ include: Tipo })
 
@@ -26,7 +26,6 @@ const getInfo = async () => {
     if (infoTotal[i].url) {
       const pokemon = await fetch(infoTotal[i].url);
       const infoPokemon = await pokemon.json();
-
       pokemonInfo.push({
         id: infoPokemon.id,
         name: infoPokemon.name,
@@ -39,7 +38,7 @@ const getInfo = async () => {
         id: infoTotal[i].id,
         idPokemon: infoTotal[i].idPokemon,
         name: infoTotal[i].name,
-        tipo: infoTotal[i].tipo.map((tipo) => tipo.name),
+        tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
         // VER QUE PONGO ACA
         // img: ,
         fuerza: infoTotal[i].fuerza,
@@ -70,11 +69,25 @@ router.get('/types', async (req, res) => {
   const tipos = await api.json()
   for (tipo of tipos.results) {
     Tipo.findOrCreate({
-      where: { nombre: tipo.name}
+      where: { name: tipo.name}
     })
   }
-  const todosLosTipos = await Tipo.findAll()
-  res.send(todosLosTipos)
+  const todosLosTipo = await Tipo.findAll()
+  res.send(todosLosTipo)
+})
+
+router.post('/pokemons', async (req,res) => {
+  let { name, vida, fuerza, defensa, velocidad, altura, peso, tipo} = req.body
+  let pokemonCreado = await Pokemon.create ({
+    name: name, vida: vida, fuerza: fuerza, defensa: defensa, velocidad: velocidad, altura:altura, peso:peso
+  })
+
+  // VER COMO HACER PARA VALIDAR QUE NO ESTE VACIO, SI ESTA VACIO LLENAR LA DB
+  let tipoDB = await Tipo.findAll({
+    where: {name: tipo}
+  })
+  pokemonCreado.addTipo(tipoDB)
+  res.send('Pokemon creado con exito')
 })
 
 module.exports = router;
