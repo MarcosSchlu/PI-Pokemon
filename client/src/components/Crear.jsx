@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { crearPokemon, obtenerTipos } from "../actions";
+import { crearPokemon, getTipos } from "../actions";
 
 const CrearPokemon = () => {
 
@@ -13,7 +13,7 @@ const CrearPokemon = () => {
 
   useEffect(() => {
     if (!state.tipos.length) {
-      dispatch(obtenerTipos());
+      dispatch(getTipos());
     }
   }, [state.tipos, dispatch]);
 

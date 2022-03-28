@@ -1,25 +1,37 @@
 import React, { Fragment } from "react";
-import { /* useState, */ useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons } from "../actions";
+import { getPokemons /* , getTipos */ } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
+import Tipo from "./Tipo";
+import Paginado from "./Paginado";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons);
+  const allTipos = useSelector((state) => state.tipos);
 
+  // PAGINADO
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [pokemonsPorPagina, setPokemonsPorPagina] = useState(5);
+
+  const indiceUltimopersonaje = paginaActual * pokemonsPorPagina;
+  const firstRecipePage = indiceUltimopersonaje - pokemonsPorPagina;
+  const personajesPresentados = allPokemons.slice(firstRecipePage, indiceUltimopersonaje);
+  
+  const paginado = function(numeroDePagina) {
+    setPaginaActual(numeroDePagina)
+  };
+  
   useEffect(() => {
     dispatch(getPokemons());
   }, [dispatch]);
 
-  /*   function handleClick(e) {
-    e.prevent.default();
-    dispatchEvent(getPokemons());
-  } */
-
   function borrarFiltros(e) {
     e.prevent.default();
+    dispatch(getPokemons())
+    setPaginaActual(1)
   }
 
   return (
@@ -42,15 +54,23 @@ export default function Home() {
           <option value="masfuerte">Mayor fuerza</option>
           <option value="menosfuerte">Menor fuerza</option>
         </select>
-        <select name="Tipo" /* className={} onChange={} */>
-          <option value="todos">Todos</option>
-          <option value="dese">1</option>
-          <option value="masfuerte">2</option>
-          <option value="menosfuerte">3</option>
+        <select name="Tipo"  >
+        {allTipos?.map((tipos) => {
+            return (
+              <Fragment key={tipos.id}>
+                <Tipo
+                  name={tipos.name}
+                />
+                ;
+              </Fragment>
+            );
+          })}
         </select>
 
-        {allPokemons &&
-          allPokemons.map((pokemon) => {
+          <Paginado pokemonsPorPagina={pokemonsPorPagina} allPokemons={allPokemons.length} paginado={paginado}/>
+
+
+        {personajesPresentados?.map((pokemon) => {
             return (
               <Fragment key={pokemon.id}>
                 <Card
@@ -58,7 +78,6 @@ export default function Home() {
                   tipo={pokemon.tipo}
                   imagen={pokemon.img}
                 />
-                ;
               </Fragment>
             );
           })}

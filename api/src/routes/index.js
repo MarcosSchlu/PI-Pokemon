@@ -11,7 +11,7 @@ const router = Router();
 // MARCOS
 // FUNCION ASYNCONA QUE TRAE TODA LA INFORMACION DE LA API y DE LA BASE DE DATOS (ICLUYENDO LOS TIPOS POR EL ATRIBUTO NOMBRE)
 const getInfo = async () => {
-  const api = await fetch('https://pokeapi.co/api/v2/pokemon?limit=5')
+  const api = await fetch('https://pokeapi.co/api/v2/pokemon?limit=40')
   const infoApi = await api.json()
   const infoDB = await Pokemon.findAll({ include: Tipo })
 
@@ -26,22 +26,19 @@ const getInfo = async () => {
     if (infoTotal[i].url) {
       const pokemon = await fetch(infoTotal[i].url);
       const infoPokemon = await pokemon.json();
-      console.log(infoPokemon.sprites.other.dream_world.front_default)
       pokemonInfo.push({
         id: infoPokemon.id,
         name: infoPokemon.name,
         tipo: infoPokemon.types.map((tipo) => tipo.type.name),
         img: infoPokemon.sprites.other.dream_world.front_default,
         fuerza: infoPokemon.stats[1].base_stat,
-      });
+      })
     } else {
       pokemonInfo.push({
         id: infoTotal[i].id,
         idPokemon: infoTotal[i].idPokemon,
         name: infoTotal[i].name,
         tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
-        // VER QUE PONGO ACA
-        // img: ,
         fuerza: infoTotal[i].fuerza,
       })
     }

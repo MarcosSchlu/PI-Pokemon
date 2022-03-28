@@ -11,14 +11,14 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+          <NavBar />
         <Routes>
 {/*           <Route exact path="/" element={<LandingPage />} /> */}
-          <Route path="/" element={<NavBar />} />
           <Route path="/home" element={<Home />} />
           <Route exact path="/pokemons/crear" element={<Crear />} />
 {/*           <Route exact path="/pokemons/:name" element={<Detalle />} /> */}
-          <Route path="/" element={<Footer />} />
         </Routes>
+          <Footer />
       </div>
     </BrowserRouter>
   );

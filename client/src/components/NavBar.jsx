@@ -1,3 +1,4 @@
+import styles from "./NavBar.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import lupa from '../img/lupa.svg'
@@ -11,13 +12,13 @@ export default function NavBar() {
   }
 
   return (
-    <div>
+    <div className={`${styles.header}`}>
       <div>
-        <Link to={'/pokemons/'}><img className={pokebola} src={pokebola} alt='img not found'/></Link>
+        <Link to={'/pokemons/'}><img className={`${styles.pokebola}`} src={pokebola} alt='img not found'/></Link>
       </div>
-      <div>
+      <div className={`${styles.inputSpace}`}>
         <form>
-          <input type="text" name="busqueda" id="busqueda" onChange={handleChange}/>
+          <input className={`${styles.inputSeach}`} type="text" name="busqueda" id="busqueda" onChange={handleChange}/>
         </form>
           <Link to={'/pokemons/' + input.busqueda}><img className={lupa} src={lupa} alt='img not found'/></Link>
       </div>
