@@ -1,7 +1,8 @@
 // MARCOS CREO EL INITIAL STATE
 
 const initialState = {
-  pokemons: []
+  pokemons: [],
+  pokemon: []
 }
 
 function rootReducer (state = initialState, action) {
