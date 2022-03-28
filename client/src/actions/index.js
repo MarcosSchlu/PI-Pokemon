@@ -9,3 +9,15 @@ export function getPokemons(){
   }
 }
 
+export function crearPokemon(){
+  return async function(){
+
+  }
+}
+
+export function obtenerTipos(){
+  return async function(){
+
+  }
+}
+

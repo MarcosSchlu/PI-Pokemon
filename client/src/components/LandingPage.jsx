@@ -1,10 +1,11 @@
 import  React from 'react';
 import {Link} from 'react-router-dom'
+import pokemon from '../img/pokemon.png'
 
 export default function landingPage () {
   return (
     <div>
-      <h1>Bienvenidos a mi super pagina</h1>
+      <img src={pokemon} alt='img not found'/>
       <Link to='/home'>
         <button>Ingresar</button>
       </Link>
