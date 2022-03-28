@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { crearPokemon, obtenerTipos } from "../actions";
 
 const CrearPokemon = () => {
 
-  const [input, setInput] = useState({ name:"", vida:0, fuerza:0, defensa:0, velocidad:0, altura:0, peso:0, tipo:"" });
+  const [input, setInput] = useState({ name:" ", vida:0, fuerza:0, defensa:0, velocidad:0, altura:0, peso:0, tipo:" " });
 
   const dispatch = useDispatch()
 
@@ -31,23 +32,23 @@ const CrearPokemon = () => {
       <h1>Crea tu Pokemon</h1>
       <form onSubmit={handleSubmit}>
         <label>Nombre: </label>
-        <input type="text" name="name" onChange={handleChange} value="input.name" />
+        <input type="text" name="name" onChange={handleChange} value={input.name} />
         <label>Vida: </label>
-        <input type="number" name="vida" onChange={handleChange} value="input.vida"/>
+        <input type="number" name="vida" onChange={handleChange} value={input.vida}/>
         <label>Fuerza: </label>
-        <input type="number" name="fuerza" onChange={handleChange} value="input.fuerza"/>
+        <input type="number" name="fuerza" onChange={handleChange} value={input.fuerza}/>
         <label>Defensa: </label>
-        <input type="number" name="defensa" onChange={handleChange} value="input.defensa"/>
+        <input type="number" name="defensa" onChange={handleChange} value={input.defensa}/>
         <label>Velocidad: </label>
-        <input type="number" name="velocidad" onChange={handleChange} value="input.velocidad"/>
+        <input type="number" name="velocidad" onChange={handleChange} value={input.velocidad}/>
         <label>Altura: </label>
-        <input type="number" name="altura" onChange={handleChange} value="input.altura"/>
+        <input type="number" name="altura" onChange={handleChange} value={input.altura}/>
         <label>Peso: </label>
-        <input type="number" name="peso" onChange={handleChange} value="input.peso"/>
+        <input type="number" name="peso" onChange={handleChange} value={input.peso}/>
 
         {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
         <label>Tipo: </label>
-        <input type="text" name="tipo" onChange={handleChange} value="input.tipo"/>
+        <input type="text" name="tipo" onChange={handleChange} value={input.tipo}/>
 
         <button type="submit">Crear</button>
       </form>

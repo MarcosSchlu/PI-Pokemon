@@ -26,6 +26,7 @@ const getInfo = async () => {
     if (infoTotal[i].url) {
       const pokemon = await fetch(infoTotal[i].url);
       const infoPokemon = await pokemon.json();
+      console.log(infoPokemon.sprites.other.dream_world.front_default)
       pokemonInfo.push({
         id: infoPokemon.id,
         name: infoPokemon.name,

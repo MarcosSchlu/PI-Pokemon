@@ -1,4 +1,7 @@
+const { API_LIMIT } = process.env;
 const { DataTypes } = require("sequelize");
+
+let primerID = API_LIMIT + 1
 
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
