@@ -21,9 +21,9 @@ export default function Home () {
 
   return (
     <div>
-      <Link to='/pokemons'>Crar pokemon</Link>
+      <Link to='/pokemons'>Crear pokemon</Link>
       <h1>POKEMON</h1>
-      <button onClick={handleClick}>Volver a cargar todos los personajes</button>
+      <button onClick={handleClick}>BORRA FILTROS</button>
       <div>
         <select name='creado' /* className={} onChange={} */>
           <option value='todos'>Todos</option>

@@ -45,10 +45,9 @@ const CrearPokemon = () => {
         <label>Peso: </label>
         <input type="number" name="peso" onChange={handleChange} value="input.peso"/>
 
-        // VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS
+        {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
         <label>Tipo: </label>
-        <input name="tipo" onChange={handleChange} value="input.tipo"/>
-
+        <input type="text" name="tipo" onChange={handleChange} value="input.tipo"/>
 
         <button type="submit">Crear</button>
       </form>
