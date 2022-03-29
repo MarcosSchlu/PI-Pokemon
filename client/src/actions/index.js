@@ -15,11 +15,31 @@ export function crearPokemon() {
 
 export function getTipos() {
   return async function () {
-/*     const response = await fetch("http://localhost:3001/types");
+/* const response = await fetch("http://localhost:3001/types");
     const data = await response.json();
     dispatch({
       type: "GETTIPOS",
       payload: data,
-    }); */
+    });  */
   };
+}
+
+export function filtrarPorTipo(payload) {
+  return {
+          type: "FILTROPORTIPO",
+          payload
+  }
+}
+
+export function filtrarPorCreado(payload) {
+  return {
+    type: "FILTROPORCREADO",
+    payload
+  }
+}
+
+export function borrarFiltros() {
+  return {
+    type: "BORRARFILTRO",
+  }
 }

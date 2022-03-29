@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons /* , getTipos */ } from "../actions";
+import { getPokemons , filtrarPorTipo , filtrarPorCreado, borrarFiltros/* , getTipos */ } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Tipo from "./Tipo";
@@ -25,13 +25,21 @@ export default function Home() {
   };
   
   useEffect(() => {
+    console.log('Atrapando pokemons....')
     dispatch(getPokemons());
   }, [dispatch]);
 
-  function borrarFiltros(e) {
-    e.prevent.default();
-    dispatch(getPokemons())
-    setPaginaActual(1)
+  function borrarFiltro() {
+    console.log('Borrando filtros....')
+    dispatch(borrarFiltros())
+  }
+
+  function handleFiltroTipo (e){
+    dispatch(filtrarPorTipo(e.target.value))
+  }
+
+  function handleFiltroCreado (e){
+    dispatch(filtrarPorCreado(e.target.value))
   }
 
   return (
@@ -41,18 +49,24 @@ export default function Home() {
       </Link>
 
       <h1>POKEMON</h1>
-      <button onClick={borrarFiltros}>BORRA FILTROS</button>
+      <button onClick={borrarFiltro}>BORRA FILTROS</button>
       <div>
-        <select name="creado" /* className={} onChange={} */>
+        <select name="creado" onChange={e => handleFiltroCreado(e)}>
           <option value="todos">Todos</option>
           <option value="api">Existente</option>
-          <option value="db">Creado</option>
+          <option value="creado">Creado</option>
         </select>
         <select name="orden" /* className={} onChange={} */>
           <option value="asce">A - Z</option>
           <option value="dese">Z - A</option>
           <option value="masfuerte">Mayor fuerza</option>
           <option value="menosfuerte">Menor fuerza</option>
+        </select>
+        <select name="prueba"  onChange={e => handleFiltroTipo(e)}>
+          <option value="Todos">Todos</option>
+          <option value="flying">flying</option>
+          <option value="grass">grass</option>
+          <option value="ground">ground</option>
         </select>
         <select name="Tipo"  >
         {allTipos?.map((tipos) => {

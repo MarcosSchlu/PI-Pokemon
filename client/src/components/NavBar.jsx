@@ -14,7 +14,7 @@ export default function NavBar() {
   return (
     <div className={`${styles.header}`}>
       <div>
-        <Link to={'/pokemons/'}><img className={`${styles.pokebola}`} src={pokebola} alt='img not found'/></Link>
+        <Link to={'/home'}><img className={`${styles.pokebola}`} src={pokebola} alt='img not found'/></Link>
       </div>
       <div className={`${styles.inputSpace}`}>
         <form>

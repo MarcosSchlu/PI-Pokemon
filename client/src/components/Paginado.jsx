@@ -15,7 +15,6 @@ export default function Paginado({ pokemonsPorPagina, allPokemons, paginado }) {
           return (
             <li className={`${styles.pageitem}`} key={numero}>
               <button className="pageBtn" onClick={() => paginado(numero)} style={{width:"30px"}}>{numero}</button>
-{/*               <a onClick={() => paginado(numero)} style={{width:"30px"}}>{numero}</a>; */}
             </li>
           );
         })}
