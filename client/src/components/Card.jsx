@@ -1,11 +1,30 @@
 import React from "react";
+import "./Card.css";
 
-export default function Card ({name, tipo, imagen}) {
-  return (
-    <div>
-      <h3>{name}</h3>
-      <h5>{tipo}</h5>
-      <img src={imagen} alt="no se enconto la imagen" width="200px" height="250px" />
-    </div>
-  )
+let prevId = 1;
+
+export default function Card({ name, tipo, imagen, id }) {
+    return (
+          <div className="cardWrapper">
+            <h3 className="card-title">{name}</h3>
+            <img
+              src={imagen}
+              alt="no se enconto la imagen"
+              width="150px"
+              height="150px"
+            />
+            <div className="tipos">
+              {tipo?.map((pokemon) => {
+                return (
+                  <div key={prevId++}>
+                  <h5 className="cardtype" >
+                    {pokemon}
+                  </h5>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+    );
+
 }

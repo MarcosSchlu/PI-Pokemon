@@ -1,0 +1,47 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.cardWrapper {
+  background-color: rgb(170, 170, 170);
+  margin: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 10px 5px 5px black;
+  min-width: 20vw;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.cardtype {
+  text-transform: uppercase;
+  padding: 0px;
+  margin: 0px;
+  text-decoration: none;
+}
+
+.cardWrapper:hover {
+  background-color: black;
+  color: aqua;
+  box-shadow: 5px 5px 5px rgb(179, 197, 12);
+  text-decoration: none;
+}
+
+.tipos{
+  padding: 10px;
+  margin: 5px;
+  text-decoration: none;
+}
+
+
+.card-title {
+  font-weight: bolder;
+  font-style: oblique;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+

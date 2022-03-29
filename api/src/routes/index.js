@@ -37,10 +37,16 @@ const getInfo = async () => {
       pokemonInfo.push({
         id: infoTotal[i].id,
         idPokemon: infoTotal[i].idPokemon,
-        name: infoTotal[i].name,
+        name: infoTotal[i].name.toLowerCase(),
         tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
         fuerza: infoTotal[i].fuerza,
-        db : infoTotal[i].db,
+        db: infoTotal[i].db,
+        img: infoTotal[i].img,
+        vida: infoTotal[i].vida,
+        defensa: infoTotal[i].defensa,
+        velocidad: infoTotal[i].velocidad,
+        altura: infoTotal[i].altura,
+        peso: infoTotal[i].peso
       });
     }
   }
@@ -51,7 +57,7 @@ router.get("/pokemons", async (req, res) => {
   const { name } = req.query;
   let pokemonsTotales = await getInfo();
   if (name) {
-    let pokemonBuscado = await pokemonsTotales.filter((pokemons) =>
+    let pokemonBuscado = pokemonsTotales.filter((pokemons) =>
       pokemons.name.toLowerCase().includes(name.toLowerCase())
     );
     if (pokemonBuscado.length) {
@@ -69,7 +75,7 @@ router.get("/types", async (req, res) => {
   const tipos = await api.json();
   for (tipo of tipos.results) {
     Tipo.findOrCreate({
-      where: { name: tipo.name },
+      where: { name: tipo.name.replace(/\b\w/g, l => l.toUpperCase()) },
     });
   }
   const todosLosTipo = await Tipo.findAll();
@@ -77,7 +83,7 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/pokemons", async (req, res) => {
-  let { name, vida, fuerza, defensa, velocidad, altura, peso, tipo } = req.body;
+  let { name, vida, fuerza, defensa, velocidad, altura, peso, tipo, img} = req.body;
   let pokemonCreado = await Pokemon.create({
     name: name,
     vida: vida,
@@ -86,6 +92,7 @@ router.post("/pokemons", async (req, res) => {
     velocidad: velocidad,
     altura: altura,
     peso: peso,
+    img: img
   });
 
   // VER COMO HACER PARA VALIDAR QUE NO ESTE VACIO, SI ESTA VACIO LLENAR LA DB
@@ -98,7 +105,7 @@ router.post("/pokemons", async (req, res) => {
 
 router.get("/pokemons/:id", async (req, res) => {
   const id = req.params.id;
-  const pokemonsTotales = await getInfo();
+  const pokemonsTotales = await getInfo(id);
   if (id) {
     let pokemonBuscado = await pokemonsTotales.filter(
       (pokemons) => pokemons.id == id

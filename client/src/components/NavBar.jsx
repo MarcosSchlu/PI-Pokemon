@@ -1,14 +1,26 @@
+import React from "react";
 import styles from "./NavBar.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import lupa from '../img/lupa.svg'
 import pokebola from '../img/pokebola.png'
+import { getPokemonsPorName } from "../actions";
+import { useDispatch } from 'react-redux';
+
 
 export default function NavBar() {
-  const [input, setInput] = useState({ busqueda: ""})
+  const [name, setName] = useState("")
+  const dispatch = useDispatch()
 
   function handleChange(e) {
-    setInput({ ...input, name: e.target.value });
+    e.preventDefault()
+    setName(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log("Buscando a " + name)
+    dispatch(getPokemonsPorName(name));
   }
 
   return (
@@ -18,9 +30,9 @@ export default function NavBar() {
       </div>
       <div className={`${styles.inputSpace}`}>
         <form>
-          <input className={`${styles.inputSeach}`} type="text" name="busqueda" id="busqueda" onChange={handleChange}/>
+          <input className={`${styles.inputSeach}`} type="text" name="busqueda" id="busqueda" placeholder="Buscar" onChange={handleChange}/>
         </form>
-          <Link to={'/pokemons/' + input.busqueda}><img className={lupa} src={lupa} alt='img not found'/></Link>
+          <img type="button" className={lupa} src={lupa} alt='img not found' onClick={handleSubmit}/>
       </div>
     </div>
   )

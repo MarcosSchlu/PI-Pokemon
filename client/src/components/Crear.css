@@ -1,0 +1,59 @@
+
+.section{
+  margin: auto;
+  position: relative;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 20px;
+  width: 60vw;
+}
+
+.titulo{
+  color: black;
+  text-align: center;
+  padding: 10px 0px;
+  font-family: 'Baloo Paaji', cursive;
+  font-size: 35px;
+}
+
+.article{
+  color: white;
+  width: 80%;
+  margin: auto;
+  font-family: 'Arial', sans-serif;
+  font-weight: light;
+  font-size: 18px;
+  
+}
+
+.label{
+  display: block;
+}
+
+.form-control{
+  margin-bottom: 20px;
+}
+
+.input{
+  width:100%;
+  padding: 10px 5px 10px 40px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.btn{
+  border: none;
+  padding: 7px;
+  width:150px;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 15px;
+  font-family: "Oswald";
+  position: relative;
+  text-decoration: none; 
+  color: black;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+ 
