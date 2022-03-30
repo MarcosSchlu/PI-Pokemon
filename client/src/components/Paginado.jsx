@@ -4,8 +4,8 @@ import React from "react";
 export default function Paginado({ pokemonsPorPagina, allPokemons, paginado }) {
   const cantidadPaginas = [];
 
-  for (let i = 0; i <= Math.ceil(allPokemons / pokemonsPorPagina); i++) {
-    cantidadPaginas.push(i+1);
+  for (let i = 0; i <= Math.ceil(allPokemons / pokemonsPorPagina)-1; i++) {
+    cantidadPaginas.push(i);
   }
   
   return (
@@ -14,7 +14,7 @@ export default function Paginado({ pokemonsPorPagina, allPokemons, paginado }) {
         {cantidadPaginas?.map((numero) => {
           return (
             <li className={`${styles.pageitem}`} key={numero}>
-              <button className="pageBtn" onClick={() => paginado(numero)} style={{width:"30px"}}>{numero}</button>
+              <button className="pageBtn" onClick={() => paginado(numero+1)} style={{width:"30px"}}>{numero+1}</button>
             </li>
           );
         })}

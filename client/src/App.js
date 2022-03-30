@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar"
 import Crear from "./components/Crear"
 import Detalle from "./components/Detalle"
 import Footer from "./components/Footer"
-import { getTipos } from './actions/index';
+import { getTipos, getPokemons } from './actions/index';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -14,7 +14,9 @@ function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log("Atrapando pokemons....");
     dispatch(getTipos());
+    dispatch(getPokemons());
   });
 
   return (

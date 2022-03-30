@@ -15,9 +15,9 @@ export default function Detalle() {
   const {id} = useParams()
 
   useEffect(() => {
-    console.log("Buscando pokemon....");
+    console.log("Invocando pokemon....");
     dispatch(getPokemonsPorID(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   function handleSubmit() {
     dispatch(borrarPokemon());

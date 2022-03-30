@@ -1,6 +1,6 @@
-import React , { useState, useEffect } from "react";
+import React , { useState, /* useEffect */ } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { crearPokemon, getTipos } from "../actions";
+import { crearPokemon, /* getTipos */ } from "../actions";
 import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
 
@@ -26,36 +26,36 @@ const CrearPokemon = () => {
     altura: 0,
     peso: 0,
     tipo: [],
+    img:"",
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const tipo = useSelector((state) => state.tipos);
 
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(getTipos());
-  }, [dispatch]);
+  }, [dispatch]); */
 
   function handleChange(e) {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
-    setErrores(validacion({
+/*     setErrores(validacion({
       ...input, [e.target.name]: e.target.value
-    }))
-    console.log(input.name)
+    }))*/
   }
+
 
   function handleCheck(e) {
     e.preventDefault();
     if (input.tipo.includes(e.target.value)) {
         input.tipo = input.tipo.filter(tipo => tipo !== e.target.value)
         setInput({ ...input, tipo: input.tipo });
-        console.log(input.tipo)
     } else {
       setInput({ ...input, tipo: [...input.tipo, e.target.value] });
-      console.log(input.tipo)
     }
   }
+  console.log(input.tipo)
 
   function handleSubmit(e) {
     e.preventDefault();

@@ -1,20 +1,21 @@
-import axios from 'axios'
+import axios from "axios";
 
 export function getPokemons() {
   return async function (dispatch) {
     const response = await fetch("http://localhost:3001/pokemons");
     const data = await response.json();
-    const ordenados =  await data.sort(function (a,b) {
+    const ordenados = await data.sort(function (a, b) {
       if (a.name > b.name) {
-        return 1
+        return 1;
       }
       if (b.name > a.name) {
-        return -1
+        return -1;
       }
-      return 0
-    })
+      return 0;
+    });
+    console.log(ordenados);
     dispatch({
-      type: "GETPOKEMONS",
+      type: "GETALLPOKEMONS",
       payload: ordenados,
     });
   };
@@ -22,10 +23,13 @@ export function getPokemons() {
 
 export function crearPokemon(payload) {
   return async function (dispatch) {
-    const response = await axios.post("http://localhost:3001/pokemons",payload);
+    const response = await axios.post(
+      "http://localhost:3001/pokemons",
+      payload
+    );
     return {
       type: "CREARPOKEMON",
-      payload: response
+      payload: payload,
     };
   };
 }
@@ -34,15 +38,15 @@ export function getTipos() {
   return async function (dispatch) {
     const response = await fetch("http://localhost:3001/types");
     const data = await response.json();
-    const ordenados =  await data.sort(function (a,b) {
+    const ordenados = await data.sort(function (a, b) {
       if (a.name > b.name) {
-        return 1
+        return 1;
       }
       if (b.name > a.name) {
-        return -1
+        return -1;
       }
-      return 0
-    })
+      return 0;
+    });
     dispatch({
       type: "GETTIPOS",
       payload: ordenados,
@@ -79,7 +83,7 @@ export function borrarFiltros() {
 
 export function getPokemonsPorID(id) {
   return async function (dispatch) {
-    const response = await fetch("http://localhost:3001/pokemons/"+id);
+    const response = await fetch("http://localhost:3001/pokemons/" + id);
     const data = await response.json();
     dispatch({
       type: "GETPOKEMONSID",
@@ -96,10 +100,22 @@ export function borrarPokemon() {
 
 export function getPokemonsPorName(name) {
   return async function (dispatch) {
-    const response = await fetch("http://localhost:3001/pokemons?name="+ name);
+    const response = await fetch("http://localhost:3001/pokemons?name=" + name);
     const data = await response.json();
     dispatch({
       type: "GETPOKEMONSNAME",
+      payload: data,
+    });
+  };
+}
+
+
+export function getPokemonsDB() {
+  return async function (dispatch) {
+    const response = await fetch("http://localhost:3001/pokemonesdb");
+    const data = await response.json();
+    dispatch({
+      type: "GETALLPOKEMONSDB",
       payload: data,
     });
   };

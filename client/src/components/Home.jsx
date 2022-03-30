@@ -2,11 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getPokemons,
+  /* getPokemons ,*/
   filtrarPorTipo,
   filtrarPorCreado,
   borrarFiltros,
   Ordenar,
+  getPokemonsDB
 } from "../actions";
 import "./Home.css";
 import { Link } from "react-router-dom";
@@ -21,7 +22,7 @@ export default function Home() {
 
   // PAGINADO
   const [paginaActual, setPaginaActual] = useState(1);
-  const [pokemonsPorPagina, setPokemonsPorPagina] = useState(6);
+  const [pokemonsPorPagina, setPokemonsPorPagina] = useState(12);
 
   const indiceUltimopersonaje = paginaActual * pokemonsPorPagina;
   const firstRecipePage = indiceUltimopersonaje - pokemonsPorPagina;
@@ -35,8 +36,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log("Atrapando pokemons....");
-    dispatch(getPokemons());
+    console.log("Atrapando nuevos pokemons....");
+    dispatch(getPokemonsDB());
   }, [dispatch]);
 
   function borrarFiltro() {
@@ -128,7 +129,7 @@ export default function Home() {
         </select>
 
         <label>VER: </label>
-        <select name="CANTIDAD" onChange={(e) => handleCantidad(e)}>
+        <select name="CANTIDAD" defaultValue={"12"} onChange={(e) => handleCantidad(e)}>
           <option value="6">
             6
           </option>
@@ -138,7 +139,12 @@ export default function Home() {
           <option value="24">
             24
           </option>
+          <option value="41">
+            41
+          </option>
         </select>
+
+          <p>{allPokemons.length}</p>
 
         <Paginado
           pokemonsPorPagina={pokemonsPorPagina}
