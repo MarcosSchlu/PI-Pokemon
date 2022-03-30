@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export function getPokemons() {
   return async function (dispatch) {
     const response = await fetch("http://localhost:3001/pokemons");
@@ -18,8 +20,13 @@ export function getPokemons() {
   };
 }
 
-export function crearPokemon() {
-  return async function () {};
+export function crearPokemon(payload) {
+  return async function (dispatch) {
+    const response = await axios.post("http://localhost:3001/pokemons",payload);
+    return {
+      type: "CREARPOKEMON",
+    };
+  };
 }
 
 export function getTipos() {

@@ -104,6 +104,9 @@ function rootReducer(state = initialState, action) {
     case "BORRARFILTRO":
       return { ...state, pokemons: state.allPokemons };
 
+    case "CREARPOKEMON":
+      return { ...state};
+
     default:
       return state;
   }
