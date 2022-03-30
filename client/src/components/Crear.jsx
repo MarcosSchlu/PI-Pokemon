@@ -4,9 +4,18 @@ import { crearPokemon, getTipos } from "../actions";
 import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
 
-/* function validacion(input) {} */
+function validacion(input) {
+let errores = {}
+if (!input.name) {
+  errores.name = "Se requiere un nombre"
+}
+
+return errores
+}
 
 const CrearPokemon = () => {
+
+  const [errores, setErrores] = useState({})
 
   const [input, setInput] = useState({
     name: "",
@@ -30,13 +39,21 @@ const CrearPokemon = () => {
   function handleChange(e) {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
+    setErrores(validacion({
+      ...input, [e.target.name]: e.target.value
+    }))
+    console.log(input.name)
   }
 
   function handleCheck(e) {
     e.preventDefault();
-    if (e.target.checked) {
+    if (input.tipo.includes(e.target.value)) {
+        input.tipo = input.tipo.filter(tipo => tipo !== e.target.value)
+        setInput({ ...input, tipo: input.tipo });
+        console.log(input.tipo)
+    } else {
       setInput({ ...input, tipo: [...input.tipo, e.target.value] });
-      console.log(input)
+      console.log(input.tipo)
     }
   }
 
@@ -65,17 +82,18 @@ const CrearPokemon = () => {
     <div className="section">
       <div className="article">
         <h1 className="titulo">CREA TU POKEMON</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-control">
             <label className="label">Nombre: </label>
             <input
               type="text"
               name="name"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.name}
               autoCapitalize="none"
             />
           </div>
+          {errores.name && (<p className="error">{errores.name}</p>)}
 
           <div className="form-control">
             {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
@@ -93,7 +111,7 @@ const CrearPokemon = () => {
                     name="tipo"
                     value={tipo.name}
                     selected={input.tipo.includes(tipo)}
-                    onChange={handleCheck}
+                    onChange={(e) => handleCheck(e)}
                   />
                 </div>
               );
@@ -105,7 +123,7 @@ const CrearPokemon = () => {
             <input
               type="text"
               name="img"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.img}
             />
           </div>
@@ -115,7 +133,7 @@ const CrearPokemon = () => {
             <input
               type="number"
               name="vida"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.vida}
             />
           </div>
@@ -124,7 +142,7 @@ const CrearPokemon = () => {
             <input
               type="number"
               name="fuerza"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.fuerza}
             />
           </div>
@@ -133,7 +151,7 @@ const CrearPokemon = () => {
             <input
               type="number"
               name="defensa"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.defensa}
             />
           </div>
@@ -142,7 +160,7 @@ const CrearPokemon = () => {
             <input
               type="number"
               name="velocidad"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.velocidad}
             />
           </div>
@@ -151,7 +169,7 @@ const CrearPokemon = () => {
             <input
               type="number"
               name="altura"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.altura}
             />
           </div>
@@ -160,7 +178,7 @@ const CrearPokemon = () => {
             <input
               type="number"
               name="peso"
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               value={input.peso}
             />
           </div>

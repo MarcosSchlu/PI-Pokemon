@@ -25,6 +25,7 @@ export function crearPokemon(payload) {
     const response = await axios.post("http://localhost:3001/pokemons",payload);
     return {
       type: "CREARPOKEMON",
+      payload: response
     };
   };
 }
@@ -84,6 +85,12 @@ export function getPokemonsPorID(id) {
       type: "GETPOKEMONSID",
       payload: data,
     });
+  };
+}
+
+export function borrarPokemon() {
+  return {
+    type: "BORRARPOKEMON",
   };
 }
 

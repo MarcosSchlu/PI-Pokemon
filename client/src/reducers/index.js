@@ -19,7 +19,11 @@ function rootReducer(state = initialState, action) {
       return { ...state, tipos: action.payload };
 
     case "GETPOKEMONSID":
-      return { ...state, pokemons: action.payload };
+      return { ...state, pokemon: action.payload };
+
+    case "BORRARPOKEMON":
+      return { ...state, pokemon: [] };
+
 
     case "GETPOKEMONSNAME":
       return { ...state, pokemons: action.payload };
@@ -99,13 +103,14 @@ function rootReducer(state = initialState, action) {
           return 0;
         });
         return { ...state, pokemons: arregloOrdenado };
-      }; break
+      }
+      break;
 
     case "BORRARFILTRO":
       return { ...state, pokemons: state.allPokemons };
 
     case "CREARPOKEMON":
-      return { ...state};
+      return { ...state };
 
     default:
       return state;

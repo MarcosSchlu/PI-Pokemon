@@ -58,8 +58,7 @@ router.get("/pokemons", async (req, res) => {
   let pokemonsTotales = await getInfo();
   if (name) {
     let pokemonBuscado = pokemonsTotales.filter((pokemons) =>
-      pokemons.name.toLowerCase().includes(name.toLowerCase())
-    );
+      pokemons.name.toLowerCase().includes(name.toLowerCase()));
     if (pokemonBuscado.length) {
       res.status(200).send(pokemonBuscado);
     } else {
