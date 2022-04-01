@@ -148,13 +148,20 @@ export default function Home() {
 
       <div className="padre2">
         <div className="Filtros">
-          <button className="buttonfiltros" onClick={borrarFiltro}>
-            BORRA FILTROS
-          </button>
-          <div>
-            <div className="Filtros2">
+          <div className="padre3">
+            <div className="Filtros1">
+              <button className="buttonfiltros" onClick={borrarFiltro}>
+                BORRA FILTROS
+              </button>
+            </div>
+
+            <div className="Filtrostit">
               <label className="idelabel">FILTRO POR: </label>
-              <label className="idelabel">ORIGEN</label>
+            </div>
+            <div className="Filtros2">
+              <div className="ordenlabels">
+                <label className="idelabel">ORIGEN</label>
+              </div>
               <select
                 name="creado"
                 defaultValue={"todos"}
@@ -167,8 +174,10 @@ export default function Home() {
               </select>
             </div>
 
-            <div className="Filtros2">
+            <div className="Filtros3">
+            <div className="ordenlabels">
               <label className="idelabel">TIPO</label>
+              </div>
               <select
                 defaultValue={"todos"}
                 name="Tipo"

@@ -192,7 +192,6 @@
 }
 
 .Filtros {
-  background-color: tomato;
   grid-row-start: 1;
   grid-column-start: 1;
   grid-row-end: 2;
@@ -208,4 +207,63 @@
   font-size: 14px;
   font-family: sans-serif;
   color: rgb(57, 95, 170);
+}
+
+.padre3 {
+  grid-template-columns: minmax(100vw, 1fr);
+  grid-template-rows: minmax(100vh, 1fr);
+  justify-content: center;
+  align-self: center;
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-columns: 100% ;
+  grid-row-gap: 20px;
+  height: auto;
+}
+
+.Filtros1 {
+
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-row-end: 2;
+  grid-column-end: 2;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+}
+
+.Filtrostit {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-row-end: 3;
+  grid-column-end: 2;
+  height: auto;
+  width: auto;
+}
+
+.Filtros2 {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-row-end: 4;
+  grid-column-end: 2;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+}
+
+.Filtros3 {
+  grid-row-start: 4;
+  grid-column-start: 1;
+  grid-row-end: 5;
+  grid-column-end: 2;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+}
+
+.ordenlabels{
+padding-top: 5px;
 }
