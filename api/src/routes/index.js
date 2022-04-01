@@ -13,10 +13,10 @@ const router = Router();
 const getInfo = async () => {
   const api = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
   const infoApi = await api.json();
-/*   const infoDB = await Pokemon.findAll({ include: Tipo }); */
+  const infoDB = await Pokemon.findAll({ include: Tipo });
 
   // CONCATENO LA INFO DE LA API CON LA INFO DE LA BASE DE DATOS
-  let infoTotal = [/* ...infoDB, */ ...infoApi.results];
+  let infoTotal = [...infoDB, ...infoApi.results];
 
   // OBTENGO TODA LA INFO Y LA PUSHEO CON LA INFO QUE NECESITO
 
@@ -48,7 +48,7 @@ const getInfo = async () => {
       } else {
         return pokemonInfo;
       }
-/*     } else {
+    } else {
       const newPokemon = {
         id: infoTotal[i].id,
         idPokemon: infoTotal[i].idPokemon,
@@ -67,7 +67,7 @@ const getInfo = async () => {
         pokemonInfo.push(newPokemon);
       } else {
         return pokemonInfo;
-      }*/
+      }
     } 
   }
   return pokemonInfo;

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./NavBar.module.css";
+import styles from "./SearchBar.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import lupa from '../img/lupa.svg'
@@ -25,16 +25,17 @@ export default function NavBar() {
 
   return (
     <div className={`${styles.header}`}>
-      <div>
-        <Link to={'/home'}><img className={`${styles.pokebola}`} src={pokebola} alt='img not found'/></Link>
-      </div>
       <div className={`${styles.inputSpace}`}>
         <form>
-          <input className={`${styles.inputSeach}`} type="text" name="busqueda" id="busqueda" placeholder="Buscar" onChange={handleChange}/>
+          <input className={`${styles.inputSeach}`} autoComplete="off" type="text" name="busqueda" id="busqueda" placeholder="Buscar" onChange={handleChange}/>
         </form>
-          <img type="button" className={lupa} src={lupa} alt='img not found' onClick={handleSubmit}/>
+          <img type="button" className={`${styles.lupa}`} src={lupa} alt='img not found' onClick={handleSubmit}/>
       </div>
     </div>
   )
 
 }
+
+{/*       <div>
+        <Link to={'/home'}><img className={`${styles.pokebola}`} src={pokebola} alt='img not found'/></Link>
+      </div> */}

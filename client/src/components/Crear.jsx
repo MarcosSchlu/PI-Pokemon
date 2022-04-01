@@ -4,18 +4,18 @@ import { crearPokemon, /* getTipos */ } from "../actions";
 import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
 
-function validacion(input) {
+/* function validacion(input) {
 let errores = {}
 if (!input.name) {
   errores.name = "Se requiere un nombre"
 }
 
 return errores
-}
+} */
 
 const CrearPokemon = () => {
 
-  const [errores, setErrores] = useState({})
+/*   const [errores, setErrores] = useState({}) */
 
   const [input, setInput] = useState({
     name: "",
@@ -93,7 +93,7 @@ const CrearPokemon = () => {
               autoCapitalize="none"
             />
           </div>
-          {errores.name && (<p className="error">{errores.name}</p>)}
+{/*           {errores.name && (<p className="error">{errores.name}</p>)} */}
 
           <div className="form-control">
             {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}

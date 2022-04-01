@@ -1,7 +1,211 @@
+.all5 {
+  background-color: yellow;
+  min-height: 45vw;
+  text-decoration: none;
+}
+
+.imagen6 {
+  top: 10px;
+  left: 10px;
+  position: absolute;
+}
+
+.crearPokemon {
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+.agregarP {
+  color: rgb(57, 95, 170);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.iconosumar {
+  filter: invert(37%) sepia(21%) saturate(1597%) hue-rotate(181deg)
+    brightness(92%) contrast(96%);
+  width: 60px;
+  height: 60px;
+  padding-right: 20px;
+}
+
+.buttonfiltros {
+  cursor: pointer;
+  font-weight: 700;
+  font-family: sans-serif;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: rgb(57, 95, 170);
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: yellow;
+  border: none;
+  text-decoration: none;
+  box-shadow: 3px 3px 3px white;
+}
+
+.buttonfiltros:hover {
+  background: white;
+  color: rgb(57, 95, 170);
+  box-shadow: 3px 3px 3px rgb(57, 95, 170);
+}
+
+.idelabel {
+  font-size: 16px;
+  font-family: sans-serif;
+  color: rgb(57, 95, 170);
+  font-weight: bolder;
+  padding-right: 10px;
+}
+
+.padre {
+  grid-template-columns: minmax(100vw, 1fr);
+  grid-template-rows: minmax(100vh, 1fr);
+/*   justify-content: center; */
+/*   align-self: center; */
+  display: grid;
+  grid-template-rows: 1fr /* 1fr 1fr 1fr */;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  max-width: 1200px;
+  margin-top: -40px;
+  padding-left: 25px;
+  padding-right: 20px;
+  height: auto;
+}
+
+.Filtrosva {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-row-end: 2;
+  grid-column-end: 2;
+  max-height: 35px;
+  max-width: 20vw;
+}
+
+.filaorden1 {
+  grid-row-start: 1;
+  grid-column-start: 4;
+  grid-row-end: 2;
+  grid-column-end: 5;
+  display:flex;
+  height: min-content;
+  align-items: center;
+}
+.labelver2{
+  padding-left: 10px;
+}
+.filaorden2 {
+  grid-row-start: 1;
+  grid-column-start: 5;
+  grid-row-end: 2;
+  grid-column-end: 6;
+  display:flex;
+  height: min-content;
+  align-items: center;
+}
+.labelver{
+  padding-left: 80px;
+}
+
+.Paginado {  
+  height: min-content;
+  align-items: center;
+  grid-row-start: 1;
+  grid-column-start: 2;
+  grid-row-end: 2;
+  grid-column-end: 4;
+  display:flex;
+  height: min-content;
+  align-items: center;
+  margin-top: -15px;
+}
+.Paginado2 {
+  height: min-content;
+  align-items: center;
+  display:flex;
+  height: min-content;
+  align-items: center;
+  justify-content: center;
+}
+
+.select-css {
+  display: block;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: rgb(57, 95, 170);
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: 3px 3px 3px rgb(57, 95, 170);
+  appearance: none;
+  border: none;
+  background-color: white;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+    linear-gradient(to bottom, rgb(255, 255, 255) 100%, #ffffff 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
+}
+/* .select-css::-ms-expand {
+  display: none;
+} */
+/* .select-css:hover {
+} */
+
 .cardContainer {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  grid-row-end: 2;
+  grid-column-end: 3;
+  max-width: 80vw;
   display: flex;
   flex-direction: row;
   justify-content: center;   
   flex-wrap: wrap;
   text-decoration: none;
+  margin-top: -40px;
+}
+
+.padre2 {
+  grid-template-columns: minmax(100vw, 1fr);
+  grid-template-rows: minmax(100vh, 1fr);
+  justify-content: center;
+  align-self: center;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 20% 80% ;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+/*   max-width: 1200px; */
+  margin-top: 40px;
+  padding-left: 25px;
+  padding-right: 20px;
+  height: auto;
+}
+
+.Filtros {
+  background-color: tomato;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-row-end: 2;
+  grid-column-end: 2;
+  max-width: 20vw;
+  margin-top: -40px;
+}
+
+.CantidadPokemons{
+  margin-top: -11px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: rgb(57, 95, 170);
 }

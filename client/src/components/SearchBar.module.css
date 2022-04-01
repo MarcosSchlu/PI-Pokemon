@@ -1,0 +1,41 @@
+.inputSpace {
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.inputSeach {
+  border: none;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgb(57, 95, 170);
+  text-decoration: none;
+  outline: none;
+  color: rgb(57, 95, 170);
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+::placeholder {
+  color: rgb(57, 95, 170);
+  font-weight: bold;
+}
+.lupa {
+  border: 10px;
+  margin: 10px;
+  margin-left: -40px;
+  background-color: white;
+}
+
+.lupa:hover {
+  background-color: white;
+} 
+
+.header {
+  background-color: rgb(255, 255, 1);
+}

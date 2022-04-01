@@ -1,15 +1,19 @@
 .pagination {
   display: flex;
-  padding-left: 0;
-  list-style: none;
-  padding: 0.25rem 0.5rem;
+  list-style:none;
   font-size: 0.875rem;
+
+  
 }
-.pagination-sm .pageitem:first-child .page-link {
-  border-top-left-radius: 0.2rem;
-  border-bottom-left-radius: 0.2rem;
-}
-.pagination-sm .pageitem:last-child .page-link {
-  border-top-right-radius: 0.2rem;
-  border-bottom-right-radius: 0.2rem;
+
+.pageBtn{
+  background-color: rgb(57, 95, 170);
+  border-radius: 0.2rem;
+  border: none;
+  margin: 1px;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  color: white;
 }

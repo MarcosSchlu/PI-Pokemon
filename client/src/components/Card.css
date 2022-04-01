@@ -6,26 +6,27 @@
 }
 
 .cardWrapper {
-  background-color: rgb(170, 170, 170);
+  background-color: white;
   margin: 20px;
   padding: 15px;
   border-radius: 15px;
-  box-shadow: 10px 5px 5px black;
-  min-width: 20vw;
+  box-shadow: 10px 5px 5px rgb(57, 95, 170);
+  min-width: 17vw;
   font-weight: bolder;
   text-decoration: none;
+  min-height: 280px;
 }
 
 .cardtype {
   text-transform: uppercase;
-  padding: 0px;
-  margin: 0px;
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 .cardWrapper:hover {
-  background-color: black;
-  color: aqua;
+  background-color:  rgb(57, 95, 170);
+  color: white;
   box-shadow: 5px 5px 5px rgb(179, 197, 12);
   text-decoration: none;
 }
