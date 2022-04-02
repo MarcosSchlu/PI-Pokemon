@@ -139,8 +139,8 @@ export default function Home() {
             <option className="selectoption" value="24">
               24
             </option>
-            <option className="selectoption" value="41">
-              41
+            <option className="selectoption" value="48">
+              48
             </option>
           </select>
         </div>

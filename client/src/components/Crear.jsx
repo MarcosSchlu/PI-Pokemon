@@ -1,8 +1,9 @@
-import React , { useState, /* useEffect */ } from "react";
+import React, { useState /* useEffect */ } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { crearPokemon, /* getTipos */ } from "../actions";
+import { crearPokemon /* getTipos */ } from "../actions";
 import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
+import pokemon from "../img/pokemon.png";
 
 /* function validacion(input) {
 let errores = {}
@@ -14,8 +15,7 @@ return errores
 } */
 
 const CrearPokemon = () => {
-
-/*   const [errores, setErrores] = useState({}) */
+  /*   const [errores, setErrores] = useState({}) */
 
   const [input, setInput] = useState({
     name: "",
@@ -26,169 +26,216 @@ const CrearPokemon = () => {
     altura: 0,
     peso: 0,
     tipo: [],
-    img:"",
+    img: "",
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const tipo = useSelector((state) => state.tipos);
-
-/*   useEffect(() => {
-    dispatch(getTipos());
-  }, [dispatch]); */
 
   function handleChange(e) {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
-/*     setErrores(validacion({
+    /*     setErrores(validacion({
       ...input, [e.target.name]: e.target.value
     }))*/
   }
 
-
   function handleCheck(e) {
     e.preventDefault();
     if (input.tipo.includes(e.target.value)) {
-        input.tipo = input.tipo.filter(tipo => tipo !== e.target.value)
-        setInput({ ...input, tipo: input.tipo });
+      input.tipo = input.tipo.filter((tipo) => tipo !== e.target.value);
+      setInput({ ...input, tipo: input.tipo });
     } else {
       setInput({ ...input, tipo: [...input.tipo, e.target.value] });
     }
   }
-  console.log(input.tipo)
+
+  console.log(input.tipo);
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(crearPokemon(input));
-    alert("Pokemon creado")
+    alert("Pokemon creado");
     setInput({
-    name: "",
-    vida: 0,
-    fuerza: 0,
-    defensa: 0,
-    velocidad: 0,
-    altura: 0,
-    peso: 0,
-    tipo: [],
-    })
-    navigate('/home')
+      name: "",
+      vida: 0,
+      fuerza: 0,
+      defensa: 0,
+      velocidad: 0,
+      altura: 0,
+      peso: 0,
+      tipo: [],
+    });
+    navigate("/home");
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
   }
 
   return (
-    <div>
-        <div>
-        <Link to={'/home'}><button>Volver</button></Link>
+    <div className="all6">
+      <div className="imagen6">
+        <img src={pokemon} width="250px" alt="img not found" />
       </div>
-    <div className="section">
-      <div className="article">
-        <h1 className="titulo">CREA TU POKEMON</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="form-control">
-            <label className="label">Nombre: </label>
-            <input
-              type="text"
-              name="name"
-              onChange={(e) => handleChange(e)}
-              value={input.name}
-              autoCapitalize="none"
-            />
+      <div>
+        <Link to={"/home"}>
+          <div className="crearPokemon3">
+            <button className="volver3" onClick={handleSubmit}>
+              Volver
+            </button>
           </div>
-{/*           {errores.name && (<p className="error">{errores.name}</p>)} */}
+        </Link>
+      </div>
 
-          <div className="form-control">
-            {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
-            <label className="label">Tipo: </label>
-            {tipo.map((tipo) => {
-              return (
-                <div key={tipo.id} className="checks">
-                  <label className="tipo">
-                    {tipo.name}
-                  </label>
+      <h1 className="titulos">CREA TU POKEMON</h1>
+
+      <div className="section">
+        <div className="article">
+          <form>
+            <div className="primercolumna">
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Nombre</label>
+                <div className="inputttt">
                   <input
-                    key={tipo.id}
-                    className="checks"
-                    type="checkbox"
-                    name="tipo"
-                    value={tipo.name}
-                    selected={input.tipo.includes(tipo)}
-                    onChange={(e) => handleCheck(e)}
+                    className="inputname"
+                    type="text"
+                    name="name"
+                    onChange={(e) => handleChange(e)}
+                    value={input.name}
+                    autoCapitalize="none"
                   />
                 </div>
-              );
-            })}
-          </div>
+              </div>
+              {/*           {errores.name && (<p className="error">{errores.name}</p>)} */}
 
-          <div className="form-control">
-            <label className="label">Imagen: </label>
-            <input
-              type="text"
-              name="img"
-              onChange={(e) => handleChange(e)}
-              value={input.img}
-            />
-          </div>
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Imagen </label>
+                <div className="inputttt">
+                  <input
+                    className="inputname"
+                    type="text"
+                    name="img"
+                    onChange={(e) => handleChange(e)}
+                    value={input.img}
+                  />
+                </div>
+              </div>
 
-          <div className="form-control">
-            <label className="label">Vida: </label>
-            <input
-              type="number"
-              name="vida"
-              onChange={(e) => handleChange(e)}
-              value={input.vida}
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">Fuerza: </label>
-            <input
-              type="number"
-              name="fuerza"
-              onChange={(e) => handleChange(e)}
-              value={input.fuerza}
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">Defensa: </label>
-            <input
-              type="number"
-              name="defensa"
-              onChange={(e) => handleChange(e)}
-              value={input.defensa}
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">Velocidad: </label>
-            <input
-              type="number"
-              name="velocidad"
-              onChange={(e) => handleChange(e)}
-              value={input.velocidad}
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">Altura: </label>
-            <input
-              type="number"
-              name="altura"
-              onChange={(e) => handleChange(e)}
-              value={input.altura}
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">Peso: </label>
-            <input
-              type="number"
-              name="peso"
-              onChange={(e) => handleChange(e)}
-              value={input.peso}
-            />
-          </div>
+              <div className="nombrenuevo">
+                {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
+                <label className="labelnombrenuevo">Tipo</label>
+                <div className="inputtttcheck">
+                {tipo.map((tipo) => {
+                  return (
+                    <div key={tipo.id} className="md-checkbox">
+                      <label className="checks">
+                      <input
+                        key={tipo.id}
+                        className="checkso"
+                        type="checkbox"
+                        name="tipo"
+                        value={tipo.name}
+                        selected={input.tipo.includes(tipo)}
+                        onChange={(e) => handleCheck(e)}
+                      />
+                      {tipo.name}</label>
+                    </div>
+                  );
+                })}
+              </div>
+              </div>
+            </div>
+            <div className="segundacolumna">
 
-          <button type="submit" className="btn">
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Vida</label>
+                <div className="inputttt2">
+                  <input
+                    className="inputname2"
+                    type="number"
+                    name="vida"
+                    onChange={(e) => handleChange(e)}
+                    value={input.vida}
+                  />
+                </div>
+              </div>
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Fuerza</label>
+                <div className="inputttt2">
+                  <input
+                    className="inputname2"
+                    type="number"
+                    name="fuerza"
+                    onChange={(e) => handleChange(e)}
+                    value={input.fuerza}
+                  />
+                </div>
+              </div>
+
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Defensa</label>
+                <div className="inputttt2">
+                  <input
+                    className="inputname2"
+                    type="number"
+                    name="defensa"
+                    onChange={(e) => handleChange(e)}
+                    value={input.defensa}
+                  />
+                </div>
+              </div>
+
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Velocidad</label>
+                <div className="inputttt2">
+                  <input
+                    className="inputname2"
+                    type="number"
+                    name="velocidad"
+                    onChange={(e) => handleChange(e)}
+                    value={input.velocidad}
+                  />
+                </div>
+              </div>
+
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Altura</label>
+                <div className="inputttt2">
+                  <input
+                    className="inputname2"
+                    type="number"
+                    name="altura"
+                    onChange={(e) => handleChange(e)}
+                    value={input.altura}
+                  />
+                </div>
+              </div>
+
+              <div className="nombrenuevo">
+                <label className="labelnombrenuevo">Peso</label>
+                <div className="inputttt2">
+                  <input
+                    className="inputname2"
+                    type="number"
+                    name="peso"
+                    onChange={(e) => handleChange(e)}
+                    value={input.peso}
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+          <button
+            onSubmit={(e) => handleSubmit(e)}
+            type="submit"
+            className="botoncrear"
+          >
             CREAR
           </button>
-        </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
