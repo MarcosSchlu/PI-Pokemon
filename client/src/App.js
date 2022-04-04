@@ -12,8 +12,8 @@ function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("Atrapando pokemons....");
     dispatch(getTipos());
+    console.log("Atrapando pokemons....");
     dispatch(getPokemons());
   });
 
