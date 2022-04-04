@@ -64,7 +64,7 @@ export default function landingPage() {
                   <div className="nomnrenombre2"></div>
                 </div>
                 <div className="weee">
-                  <img src={foto} className="imagenmarcos"></img>
+                  <img src={foto} className="imagenmarcos" alt='img not found'></img>
                   <p className="desc">bla bla bla</p>
                 </div>
                 <div className="redes">

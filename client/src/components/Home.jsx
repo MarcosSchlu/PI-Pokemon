@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getPokemons ,
   filtrarPorTipo,
   filtrarPorCreado,
   borrarFiltros,
@@ -14,7 +13,6 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
 import pokemon from "../img/pokemon.png";
-/* import apokemon from "../img/1727487.svg"; */
 import apokemon from "../img/agregarPoke.png";
 import SearchBar from "./SearchBar";
 
@@ -22,7 +20,11 @@ export default function Home() {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons);
   const tipo = useSelector((state) => state.tipos);
-  const [orden, setOrden] = useState("");
+  const [filtros, setFiltros] = useState({
+    creado: "",
+    Tipo: "",
+    orden: ""
+  });
 
   // PAGINADO
   const [paginaActual, setPaginaActual] = useState(1);
@@ -42,12 +44,16 @@ export default function Home() {
   useEffect(() => {
     console.log("Atrapando pokemons nuevos....");
     dispatch(getPokemonsDB());
-    dispatch(getPokemons());
   }, [dispatch]);
 
   function borrarFiltro() {
     console.log("Borrando filtros....");
     dispatch(borrarFiltros());
+    setFiltros({...filtros, 
+      creado: "",
+      Tipo: ""
+    })
+    setPaginaActual(1);
   }
 
   function handleCantidad(e) {
@@ -58,12 +64,14 @@ export default function Home() {
 
   function handleFiltroTipo(e) {
     e.preventDefault();
+    setFiltros({ ...filtros, [e.target.name]: e.target.value });
     dispatch(filtrarPorTipo(e.target.value));
     setPaginaActual(1);
   }
 
   function handleFiltroCreado(e) {
     e.preventDefault();
+    setFiltros({ ...filtros, [e.target.name]: e.target.value });
     dispatch(filtrarPorCreado(e.target.value));
     setPaginaActual(1);
   }
@@ -72,7 +80,7 @@ export default function Home() {
     e.preventDefault();
     dispatch(Ordenar(e.target.value));
     setPaginaActual(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setFiltros({ ...filtros, [e.target.name]: e.target.value });
   }
 
   return (
@@ -107,13 +115,13 @@ export default function Home() {
           <div className="labelver2"></div>
           <label className="idelabel">ORDENAR</label>
           <select
-            defaultValue={"az"}
-            name="filtro"
+            name="orden"
             onChange={(e) => handleOrden(e)}
             className="select-css"
+            value={filtros.orden}
           >
             <option disabled>Nombre</option>
-            <option value="az">A - Z</option>
+            <option value="">A - Z</option>
             <option value="za">Z - A</option>
             <option disabled>Fuerza</option>
             <option value="masfuerte">Mayor fuerza</option>
@@ -131,9 +139,6 @@ export default function Home() {
             onChange={(e) => handleCantidad(e)}
             className="select-css"
           >
-            <option className="selectoption" value="6">
-              6
-            </option>
             <option className="selectoption" value="12">
               12
             </option>
@@ -165,11 +170,11 @@ export default function Home() {
               </div>
               <select
                 name="creado"
-                defaultValue={"todos"}
                 className="select-css"
                 onChange={(e) => handleFiltroCreado(e)}
+                value={filtros.creado}
               >
-                <option value="todos">Todos</option>
+                <option value="">Todos</option>
                 <option value="api">Existente</option>
                 <option value="creado">Creado</option>
               </select>
@@ -180,12 +185,12 @@ export default function Home() {
               <label className="idelabel">TIPO</label>
               </div>
               <select
-                defaultValue={"todos"}
                 name="Tipo"
                 onChange={(e) => handleFiltroTipo(e)}
                 className="select-css"
+                value={filtros.Tipo}
               >
-                <option value="todos">Todos</option>
+                <option value="">Todos</option>
                 {tipo.map((tipo) => {
                   return (
                     <option value={tipo.name} key={tipo.id}>

@@ -220,7 +220,7 @@ const CrearPokemon = () => {
                 <div className="nombrenuevotipos2">
                   {tipo.map((tipo) => {
                     return (
-                      <div className="tiposss">
+                      <div key={tipo.id} className="tiposss">
                         <div key={tipo.id} className="md-checkbox">
                           <input
                             key={tipo.id}

@@ -9,7 +9,9 @@ export default function Paginado({ pokemonsPorPagina, allPokemons, paginado }) {
   }
   
   return (
-    <nav>
+    <div>
+    { cantidadPaginas.length > 1 ? 
+      (<nav>
       <ul className={`${styles.pagination}`} >
         {cantidadPaginas?.map((numero) => {
           return (
@@ -19,6 +21,7 @@ export default function Paginado({ pokemonsPorPagina, allPokemons, paginado }) {
           );
         })}
       </ul>
-    </nav>
+    </nav>) : (<div className="bebe"></div>) }
+    </div>
   );
 }

@@ -59,9 +59,9 @@ export default function Detalle() {
 
           <div className="infopoke">
 
-          <div className="titulo">
-          <h3 className="nombre">{Pokemon[0].name}</h3>
-          <div className="subrayao"></div>
+          <div className="titulo2">
+          <h3 className="nombre2">{Pokemon[0].name}</h3>
+          <div className="subrayao2"></div>
           </div>
 
           <div className="Propiedades">

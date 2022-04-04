@@ -29,7 +29,7 @@ export function crearPokemon(payload) {
     );
     return {
       type: "CREARPOKEMON",
-      payload: payload,
+      payload: response,
     };
   };
 }
@@ -55,9 +55,10 @@ export function getTipos() {
 }
 
 export function filtrarPorTipo(payload) {
+  console.log(payload)
   return {
     type: "FILTROPORTIPO",
-    payload,
+    payload: payload,
   };
 }
 

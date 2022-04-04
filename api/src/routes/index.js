@@ -22,10 +22,6 @@ const getInfo = async () => {
 
   let pokemonInfo = [];
 
-  /*   let a= infoApi.results.map((pokemon) => fetch(pokemon.url))
-  Promise.all(a)
-  .then(v => console.log(v)) */
-
   for (i = 0; i < infoTotal.length; i++) {
     if (!infoTotal[i]) return pokemonInfo;
     if (infoTotal[i].url) {
@@ -74,6 +70,7 @@ const getInfo = async () => {
 };
 
 router.get("/pokemons", async (req, res) => {
+  try {
   const { name } = req.query;
   let pokemonsTotales = await getInfo();
   if (name) {
@@ -88,18 +85,25 @@ router.get("/pokemons", async (req, res) => {
   } else {
     res.status(200).send(pokemonsTotales);
   }
+} catch (error) {
+  res.send(error);
+}
 });
 
 router.get("/types", async (req, res) => {
-  const api = await fetch("https://pokeapi.co/api/v2/type");
-  const tipos = await api.json();
-  for (tipo of tipos.results) {
-    Tipo.findOrCreate({
-      where: { name: tipo.name.replace(/\b\w/g, (l) => l.toUpperCase()) },
-    });
+  try {
+    const api = await fetch("https://pokeapi.co/api/v2/type");
+    const tipos = await api.json();
+    for (tipo of tipos.results) {
+      Tipo.findOrCreate({
+        where: { name: tipo.name.replace(/\b\w/g, (l) => l.toUpperCase()) },
+      });
+    }
+    const todosLosTipo = await Tipo.findAll();
+    res.send(todosLosTipo);
+  } catch (error) {
+    res.send(error);
   }
-  const todosLosTipo = await Tipo.findAll();
-  res.send(todosLosTipo);
 });
 
 router.post("/pokemons", async (req, res) => {
@@ -125,19 +129,23 @@ router.post("/pokemons", async (req, res) => {
 });
 
 router.get("/pokemons/:id", async (req, res) => {
-  const id = req.params.id;
-  const pokemonsTotales = await getInfo(id);
-  if (id) {
-    let pokemonBuscado = await pokemonsTotales.filter(
-      (pokemons) => pokemons.id == id
-    );
-    if (pokemonBuscado.length) {
-      res.status(200).send(pokemonBuscado);
+  try {
+    const id = req.params.id;
+    const pokemonsTotales = await getInfo(id);
+    if (id) {
+      let pokemonBuscado = await pokemonsTotales.filter(
+        (pokemons) => pokemons.id == id
+      );
+      if (pokemonBuscado.length) {
+        res.status(200).send(pokemonBuscado);
+      } else {
+        res.status(404).send("No se encontro el Pokemon");
+      }
     } else {
-      res.status(404).send("No se encontro el Pokemon");
+      res.status(200).send(pokemonsTotales);
     }
-  } else {
-    res.status(200).send(pokemonsTotales);
+  } catch (error) {
+    res.send(error);
   }
 });
 
@@ -173,31 +181,36 @@ router.get("/pokemonesapi", async (req, res) => {
 }); */
 
 const getInfoDB = async () => {
-  const infoDB = await Pokemon.findAll({ include: Tipo });
-  let infoTotal = [...infoDB];
-  let pokemonInfo = [];
-  for (i = 0; i < infoTotal.length; i++) {
-    pokemonInfo.push({
-      id: infoTotal[i].id,
-      idPokemon: infoTotal[i].idPokemon,
-      name: infoTotal[i].name.toLowerCase(),
-      tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
-      img: infoTotal[i].img,
-      fuerza: infoTotal[i].fuerza,
-      vida: infoTotal[i].vida,
-      defensa: infoTotal[i].defensa,
-      velocidad: infoTotal[i].velocidad,
-      altura: infoTotal[i].altura,
-      peso: infoTotal[i].peso,
-      db: infoTotal[i].db,
-    });
-  }
-  return pokemonInfo;
+    const infoDB = await Pokemon.findAll({ include: Tipo });
+    let infoTotal = [...infoDB];
+    let pokemonInfo = [];
+    if(!infoTotal.length) return pokemonInfo;
+    for (i = 0; i < infoTotal.length; i++) {
+      pokemonInfo.push({
+        id: infoTotal[i].id,
+        idPokemon: infoTotal[i].idPokemon,
+        name: infoTotal[i].name.toLowerCase(),
+        tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
+        img: infoTotal[i].img,
+        fuerza: infoTotal[i].fuerza,
+        vida: infoTotal[i].vida,
+        defensa: infoTotal[i].defensa,
+        velocidad: infoTotal[i].velocidad,
+        altura: infoTotal[i].altura,
+        peso: infoTotal[i].peso,
+        db: infoTotal[i].db,
+      });
+    }
+    return pokemonInfo;
 };
 
 router.get("/pokemonesdb", async (req, res) => {
-  let pokemonsTotales = await getInfoDB();
-  res.status(200).send(pokemonsTotales);
+  try {
+    let pokemonsTotales = await getInfoDB();
+    res.status(200).send(pokemonsTotales);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 

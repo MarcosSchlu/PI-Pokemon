@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./SearchBar.module.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import lupa from '../img/lupa.svg'
-import pokebola from '../img/pokebola.png'
 import { getPokemonsPorName } from "../actions";
 import { useDispatch } from 'react-redux';
 
@@ -36,6 +34,3 @@ export default function NavBar() {
 
 }
 
-{/*       <div>
-        <Link to={'/home'}><img className={`${styles.pokebola}`} src={pokebola} alt='img not found'/></Link>
-      </div> */}

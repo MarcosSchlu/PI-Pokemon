@@ -5,7 +5,8 @@ const initialState = {
   allPokemons: [],
   pokemon: [],
   tipos: [],
-  filtrosyOrden: [],
+  filtrostipo: [],
+  filtroscreado: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -17,6 +18,7 @@ function rootReducer(state = initialState, action) {
         pokemons: action.payload,
         allPokemons: action.payload,
       };
+      
     case "GETTIPOS":
       return { ...state, tipos: action.payload };
     case "GETPOKEMONSID":
@@ -25,13 +27,16 @@ function rootReducer(state = initialState, action) {
       return { ...state, pokemon: [] };
     case "GETPOKEMONSNAME":
       return { ...state, pokemons: action.payload };
+
+
+      
     case "FILTROPORTIPO":
-      if (action.payload === "todos") {
+      if (action.payload === "") {
         return { ...state, pokemons: state.allPokemons };
       } else {
         const allPokemons = state.allPokemons;
         const tipofiltro =
-          action.payload === "Todos"
+          action.payload === ""
             ? state.allPokemons
             : allPokemons.filter((pokemon) =>
                 pokemon.tipo?.some(
@@ -48,7 +53,7 @@ function rootReducer(state = initialState, action) {
           : todosPokemons.filter((pokemon) => !pokemon.db);
       return {
         ...state,
-        pokemons: action.payload === "todos" ? state.allPokemons : filtroCreado,
+        pokemons: action.payload === "" ? state.allPokemons : filtroCreado,
       };
     case "ORDENAR":
       if (action.payload === "masfuerte") {
@@ -75,7 +80,7 @@ function rootReducer(state = initialState, action) {
         });
         return { ...state, pokemons: arregloOrdenado };
       }
-      if (action.payload === "az") {
+      if (action.payload === "") {
         let arregloOrdenado = state.pokemons.sort(function (a, b) {
           if (a.name > b.name) {
             return 1;
@@ -130,10 +135,25 @@ function rootReducer(state = initialState, action) {
       console.log(
         "Se atraparon " + nuevosPokemones.length + " nuevos Pokemons"
       );
+
+      let actualizadospokemons = [...state.allPokemons, ...nuevosPokemones]
+
+
+      let arregloOrdenado = actualizadospokemons.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (b.name > a.name) {
+          return -1;
+        }
+        return 0;
+      });
+/*       return { ...state, pokemons: arregloOrdenado }; */
+
       return {
         ...state,
-        pokemons: [...state.allPokemons, ...nuevosPokemones],
-        allPokemons: [...state.allPokemons, ...nuevosPokemones],
+        pokemons: [...state.allPokemons, ...arregloOrdenado],
+        allPokemons: [...state.allPokemons, ...arregloOrdenado],
       };
 
     default:
