@@ -42,7 +42,6 @@ const CrearPokemon = () => {
   }
 
   function handleCheck(e) {
-    e.preventDefault();
     if (input.tipo.includes(e.target.value)) {
       input.tipo = input.tipo.filter((tipo) => tipo !== e.target.value);
       setInput({ ...input, tipo: input.tipo });
@@ -70,10 +69,6 @@ const CrearPokemon = () => {
     navigate("/home");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-
   return (
     <div className="all6">
       <div className="imagen6">
@@ -82,9 +77,7 @@ const CrearPokemon = () => {
       <div>
         <Link to={"/home"}>
           <div className="crearPokemon3">
-            <button className="volver3" onClick={handleSubmit}>
-              Volver
-            </button>
+            <button className="volver3">Volver</button>
           </div>
         </Link>
       </div>
@@ -93,13 +86,13 @@ const CrearPokemon = () => {
 
       <div className="section">
         <div className="article">
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="primercolumna">
               <div className="nombrenuevo">
-                <label className="labelnombrenuevo">Nombre</label>
-                <div className="inputttt">
+                <label className="labelnombrenuevo5">Nombre</label>
+                <div className="inputttt5">
                   <input
-                    className="inputname"
+                    className="inputname5"
                     type="text"
                     name="name"
                     onChange={(e) => handleChange(e)}
@@ -111,10 +104,10 @@ const CrearPokemon = () => {
               {/*           {errores.name && (<p className="error">{errores.name}</p>)} */}
 
               <div className="nombrenuevo">
-                <label className="labelnombrenuevo">Imagen </label>
-                <div className="inputttt">
+                <label className="labelnombrenuevo5">Imagen </label>
+                <div className="inputttt5">
                   <input
-                    className="inputname"
+                    className="inputname5"
                     type="text"
                     name="img"
                     onChange={(e) => handleChange(e)}
@@ -123,117 +116,135 @@ const CrearPokemon = () => {
                 </div>
               </div>
 
-              <div className="nombrenuevo">
-                {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
-                <label className="labelnombrenuevo">Tipo</label>
-                <div className="inputtttcheck">
-                {tipo.map((tipo) => {
-                  return (
-                    <div key={tipo.id} className="md-checkbox">
-                      <label className="checks">
-                      <input
-                        key={tipo.id}
-                        className="checkso"
-                        type="checkbox"
-                        name="tipo"
-                        value={tipo.name}
-                        selected={input.tipo.includes(tipo)}
-                        onChange={(e) => handleCheck(e)}
-                      />
-                      {tipo.name}</label>
-                    </div>
-                  );
-                })}
-              </div>
-              </div>
-            </div>
-            <div className="segundacolumna">
 
+              <div className="primcolumna">
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo">Vida</label>
-                <div className="inputttt2">
+                <div className="inputttt">
                   <input
                     className="inputname2"
                     type="number"
                     name="vida"
                     onChange={(e) => handleChange(e)}
                     value={input.vida}
+                    min="1" 
+                    max="100"
                   />
                 </div>
               </div>
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo">Fuerza</label>
-                <div className="inputttt2">
+                <div className="inputttt">
                   <input
                     className="inputname2"
                     type="number"
                     name="fuerza"
                     onChange={(e) => handleChange(e)}
                     value={input.fuerza}
+                    min="1" 
+                    max="150"
                   />
                 </div>
               </div>
 
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo">Defensa</label>
-                <div className="inputttt2">
+                <div className="inputttt">
                   <input
                     className="inputname2"
                     type="number"
                     name="defensa"
                     onChange={(e) => handleChange(e)}
                     value={input.defensa}
+                    min="1" 
+                    max="150"
                   />
                 </div>
-              </div>
+                </div>
+                </div>
 
+              <div className="segucolumna">
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo">Velocidad</label>
-                <div className="inputttt2">
+                <div className="inputttt">
                   <input
                     className="inputname2"
                     type="number"
                     name="velocidad"
                     onChange={(e) => handleChange(e)}
                     value={input.velocidad}
+                    min="1" 
+                    max="100"
                   />
                 </div>
               </div>
 
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo">Altura</label>
-                <div className="inputttt2">
+                <div className="inputttt">
                   <input
                     className="inputname2"
                     type="number"
                     name="altura"
                     onChange={(e) => handleChange(e)}
                     value={input.altura}
+                    min="1" 
+                    max="100"
                   />
                 </div>
               </div>
 
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo">Peso</label>
-                <div className="inputttt2">
+                <div className="inputttt">
                   <input
                     className="inputname2"
                     type="number"
                     name="peso"
                     onChange={(e) => handleChange(e)}
                     value={input.peso}
+                    min="1" 
+                    max="100"
                   />
                 </div>
               </div>
             </div>
+            </div>
+
+            <div className="segundacolumna">
+              <div className="nombrenuevo">
+                {/*VER COMO HACE PARA SELECCIONAR ENTRE TIPOS EXISTENTES Y VARIOS*/}
+                <label className="labelnombrenuevotipo">Tipo</label>
+                <div className="inputtttcheck"> </div>
+                <div className="nombrenuevotipos">
+                <div className="nombrenuevotipos2">
+                  {tipo.map((tipo) => {
+                    return (
+                      <div className="tiposss">
+                        <div key={tipo.id} className="md-checkbox">
+                          <input
+                            key={tipo.id}
+                            className="checkso"
+                            type="checkbox"
+                            name="tipo"
+                            value={tipo.name}
+                            selected={input.tipo.includes(tipo)}
+                            onChange={(e) => handleCheck(e)}
+                          />
+
+                          <label className="checks"> {tipo.name}</label>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" className="botoncrear">
+              CREAR
+            </button>
           </form>
-          <button
-            onSubmit={(e) => handleSubmit(e)}
-            type="submit"
-            className="botoncrear"
-          >
-            CREAR
-          </button>
         </div>
       </div>
     </div>

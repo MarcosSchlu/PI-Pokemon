@@ -61,7 +61,7 @@
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
-  justify-content: end;
+/*   justify-content: end; */
   margin-left: auto;
   margin-right: auto;
   padding-left: 30px;
@@ -235,13 +235,28 @@
 }
 .nomnrenombre{
   position:absolute;
-  left: 50px;
+  left: -10px;
+  top: 22px;
   font-style: oblique;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 1.2;
   letter-spacing: 0.15px;
   font-family: "Avenir Black";
   z-index: 2;
+  width: 100%;
+}
+
+.nomnrenombre3{
+  position:absolute;
+  left: 155px;
+  top: 22px;
+  font-style: oblique;
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+  font-family: "Avenir Black";
+  z-index: 2;
+  width: 100%;
 }
 .nomnrenombre2{
   position:absolute;

@@ -59,7 +59,8 @@ export default function landingPage() {
             <div className="marcos">
               <div className="ubi">
                 <div className="nombre">
-                  <p className="nomnrenombre">Marcos Schlusselblum</p>
+                  <p className="nomnrenombre">Marcos</p>
+                  <p className="nomnrenombre3">Schlusselblum</p>
                   <div className="nomnrenombre2"></div>
                 </div>
                 <div className="weee">
