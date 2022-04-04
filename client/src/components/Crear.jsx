@@ -5,17 +5,40 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
 import pokemon from "../img/pokemon.png";
 
-/* function validacion(input) {
+function validacion(input) {
 let errores = {}
 if (!input.name) {
   errores.name = "Se requiere un nombre"
 }
-
+if (!input.img) {
+  errores.img = "Se requiere una imagen"
+}
+if (input.vida < 1 || input.vida > 100) {
+  errores.vida = "Se requiere un valor de vida entre 1 y 100"
+}
+if (input.fuerza < 1 || input.vida > 100) {
+  errores.fuerza = "Se requiere un valor de fuerza entre 1 y 150"
+}
+if (input.defensa < 1 || input.vida > 100) {
+  errores.defensa = "Se requiere un valor de defensa entre 1 y 100"
+}
+if (input.velocidad < 1 || input.vida > 100) {
+  errores.velocidad = "Se requiere un valor de velocidad entre 1 y 100"
+}
+if (input.altura < 1 || input.vida > 100) {
+  errores.altura = "Se requiere un valor de altura entre 1 y 100"
+}
+if (input.peso < 1 || input.vida > 100) {
+  errores.peso = "Se requiere un valor de peso entre 1 y 100"
+}
+if (!input.tipo) {
+  errores.tipo = "Debe seleccionar por lo menos un tipo"
+}
 return errores
-} */
+}
 
 const CrearPokemon = () => {
-  /*   const [errores, setErrores] = useState({}) */
+  const [errores, setErrores] = useState({})
 
   const [input, setInput] = useState({
     name: "",
@@ -35,10 +58,12 @@ const CrearPokemon = () => {
 
   function handleChange(e) {
     e.preventDefault();
-    setInput({ ...input, [e.target.name]: e.target.value });
-    /*     setErrores(validacion({
-      ...input, [e.target.name]: e.target.value
-    }))*/
+    setInput((prevInput) => {
+      const newInput = { ...prevInput, [e.target.name]: e.target.value } ;
+    const validaciones = validacion(newInput)
+    setErrores(validaciones) 
+    return newInput 
+  })
   }
 
   function handleCheck(e) {
@@ -49,8 +74,6 @@ const CrearPokemon = () => {
       setInput({ ...input, tipo: [...input.tipo, e.target.value] });
     }
   }
-
-  console.log(input.tipo);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -65,6 +88,7 @@ const CrearPokemon = () => {
       altura: 0,
       peso: 0,
       tipo: [],
+      img: "",
     });
     navigate("/home");
   }
@@ -101,7 +125,6 @@ const CrearPokemon = () => {
                   />
                 </div>
               </div>
-              {/*           {errores.name && (<p className="error">{errores.name}</p>)} */}
 
               <div className="nombrenuevo">
                 <label className="labelnombrenuevo5">Imagen </label>
@@ -240,6 +263,17 @@ const CrearPokemon = () => {
                 </div>
                 </div>
               </div>
+            </div>
+            <div className="columna3">
+            {errores.name && (<p className="error">{errores.name}</p>)}
+            {errores.imagen && (<p className="error">{errores.imagen}</p>)}
+            {errores.vida && (<p className="error">{errores.vida}</p>)}
+            {errores.fuerza && (<p className="error">{errores.fuerza}</p>)}
+            {errores.defensa && (<p className="error">{errores.defensa}</p>)}
+            {errores.velocidad && (<p className="error">{errores.velocidad}</p>)}
+            {errores.altura && (<p className="error">{errores.altura}</p>)}
+            {errores.peso && (<p className="error">{errores.peso}</p>)}
+            {errores.tipo && (<p className="error">{errores.tipo}</p>)}
             </div>
             <button type="submit" className="botoncrear">
               CREAR

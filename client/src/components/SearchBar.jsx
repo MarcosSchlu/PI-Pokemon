@@ -19,15 +19,16 @@ export default function NavBar() {
     e.preventDefault()
     console.log("Buscando a " + name)
     dispatch(getPokemonsPorName(name));
+    setName("")
   }
 
   return (
     <div className={`${styles.header}`}>
       <div className={`${styles.inputSpace}`}>
-        <form>
-          <input className={`${styles.inputSeach}`} autoComplete="off" type="text" name="busqueda" id="busqueda" placeholder="Buscar" onChange={handleChange}/>
+        <form onSubmit={handleSubmit}>
+          <input className={`${styles.inputSeach}`} autoComplete="off" type="text" name="busqueda" id="busqueda" placeholder="Buscar" onChange={handleChange} value={name}/>
         </form>
-          <img type="button" className={`${styles.lupa}`} src={lupa} alt='img not found' onClick={handleSubmit}/>
+          <img type="button" className={`${styles.lupa}`} src={lupa} alt='img not found' onSubmit={handleSubmit}/>
       </div>
     </div>
   )

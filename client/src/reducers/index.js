@@ -2,21 +2,38 @@
 
 const initialState = {
   pokemons: [],
-  allPokemons: [],
+  allPokemonsapi: [],
   pokemon: [],
   tipos: [],
   filtrostipo: [],
   filtroscreado: [],
+  vacio: [],
+  listaPokemonsdb: []
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GETALLPOKEMONS":
-      console.log("Se atraparon " + action.payload.length + " pokemons");
+      const nuevosapi = action.payload
+      const listaPokemonsdb = state.listaPokemonsdb
+      const todos = nuevosapi.concat(listaPokemonsdb)
+
+      if (!todos.length) return { ...state };
+      console.log(
+        "Se atraparon " + todos.length + " Pokemons"
+      );
+
+      let arregloOrdenado2 = todos.sort(function (a, b) {
+        if (a.name > b.name) return 1
+        if (b.name > a.name) return -1
+        return 0;
+      });
+
       return {
         ...state,
-        pokemons: action.payload,
-        allPokemons: action.payload,
+        pokemons: [ ...arregloOrdenado2],
+        allPokemonsapi: [...nuevosapi],
+        allPokemons: [ ...arregloOrdenado2],
       };
       
     case "GETTIPOS":
@@ -26,7 +43,20 @@ function rootReducer(state = initialState, action) {
     case "BORRARPOKEMON":
       return { ...state, pokemon: [] };
     case "GETPOKEMONSNAME":
-      return { ...state, pokemons: action.payload };
+
+    //OPCION RAPIDA
+      const todosPokemons3 = state.allPokemons;
+      let pokemonBuscado = todosPokemons3.filter((pokemons) =>
+        pokemons.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      return {
+        ...state,
+        pokemons: action.payload === "" ? state.vacio : pokemonBuscado,
+      };
+
+
+/*       //OPCION LENTA
+      return { ...state, pokemons: action.payload }; */
 
 
       
@@ -111,49 +141,26 @@ function rootReducer(state = initialState, action) {
       return { ...state };
 
     case "GETALLPOKEMONSDB":
-      const todosPokemones = state.allPokemons;
-      const payload = action.payload
-      if (!action.payload.length) {
-        console.log("No hay nuevos pokemones cerca...");
-        return { ...state };
-      }
-      console.log(payload);
+      const Pokemonsdb = action.payload
+      const listaPokemonsapi = state.allPokemonsapi
+      const todosdb = Pokemonsdb.concat(listaPokemonsapi)
 
-      const existente = []
-      // Recorres ambos arreglos y aplicas la condición que deseas
-      payload.filter((d) => {
-        todosPokemones.filter((s) => {
-          if (d.id === s.id) {
-            existente.push(d)
-          }
-        })
-      })
-      const nuevosPokemones = payload.filter(d => !existente.includes(d))
-      
-      console.log(nuevosPokemones);
-      if (!nuevosPokemones.length) return { ...state };
+      if (!todosdb.length) return { ...state };
       console.log(
-        "Se atraparon " + nuevosPokemones.length + " nuevos Pokemons"
+        "Se atraparon " + todosdb.length + " Pokemons"
       );
 
-      let actualizadospokemons = [...state.allPokemons, ...nuevosPokemones]
-
-
-      let arregloOrdenado = actualizadospokemons.sort(function (a, b) {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (b.name > a.name) {
-          return -1;
-        }
+      let arregloOrdenado3 = todosdb.sort(function (a, b) {
+        if (a.name > b.name) return 1
+        if (b.name > a.name) return -1
         return 0;
       });
-/*       return { ...state, pokemons: arregloOrdenado }; */
 
       return {
         ...state,
-        pokemons: [...state.allPokemons, ...arregloOrdenado],
-        allPokemons: [...state.allPokemons, ...arregloOrdenado],
+        pokemons: [ ...arregloOrdenado3],
+        listaPokemonsdb: [...Pokemonsdb],
+        allPokemons: [ ...arregloOrdenado3],
       };
 
     default:

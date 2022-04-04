@@ -75,7 +75,7 @@
   position: absolute;
   left: 30px;
   width: 50%;
-  top: 15px
+  top: 15px;
 }
 
 .nombrenuevo {
@@ -84,7 +84,7 @@
   padding-top: 30px;
   width: 100%;
   max-width: 100%;
-  top: 10px
+  top: 10px;
 }
 
 .labelnombrenuevo {
@@ -146,10 +146,10 @@
 }
 
 .segundacolumna {
-  left: 42%;
+  left: 41%;
   position: absolute;
   width: 50%;
-  top: 12px
+  top: 12px;
 }
 
 .botoncrear {
@@ -222,9 +222,9 @@
   height: 50px;
 }
 
-.nombrenuevotipos2{
+.nombrenuevotipos2 {
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   flex-wrap: wrap;
   max-height: 50vw;
 }
@@ -235,14 +235,26 @@
   font-weight: bold;
 }
 
-.segucolumna{
+.segucolumna {
   position: absolute;
   left: 230px;
   width: 100%;
 }
 
-.primcolumna{
+.primcolumna {
   position: absolute;
   left: 0px;
   width: 100%;
+}
+
+.columna3 {
+  left: 71%;
+  position: absolute;
+  top: 12px;
+  color: red;
+  display: inline;
+  flex-direction: row;
+  max-width: 305px;
+  text-align: left;
+  font-size: 14px;
 }

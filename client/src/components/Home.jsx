@@ -38,7 +38,7 @@ export default function Home() {
   );
 
   const paginado = function (numeroDePagina) {
-    setPaginaActual(numeroDePagina);
+      setPaginaActual(numeroDePagina);
   };
 
   useEffect(() => {
@@ -46,7 +46,8 @@ export default function Home() {
     dispatch(getPokemonsDB());
   }, [dispatch]);
 
-  function borrarFiltro() {
+  function borrarFiltro(e) {
+    e.preventDefault();
     console.log("Borrando filtros....");
     dispatch(borrarFiltros());
     setFiltros({...filtros, 
@@ -64,14 +65,14 @@ export default function Home() {
 
   function handleFiltroTipo(e) {
     e.preventDefault();
-    setFiltros({ ...filtros, [e.target.name]: e.target.value });
+    setFiltros({ ...filtros, [e.target.name]: e.target.value , creado: "" });
     dispatch(filtrarPorTipo(e.target.value));
     setPaginaActual(1);
   }
 
   function handleFiltroCreado(e) {
     e.preventDefault();
-    setFiltros({ ...filtros, [e.target.name]: e.target.value });
+    setFiltros({ ...filtros, [e.target.name]: e.target.value , Tipo: "" });
     dispatch(filtrarPorCreado(e.target.value));
     setPaginaActual(1);
   }
@@ -156,7 +157,7 @@ export default function Home() {
         <div className="Filtros">
           <div className="padre3">
             <div className="Filtros1">
-              <button className="buttonfiltros" onClick={borrarFiltro}>
+              <button className="buttonfiltros" onClick={(e) => borrarFiltro(e)}>
                 BORRA FILTROS
               </button>
             </div>
@@ -206,8 +207,8 @@ export default function Home() {
         <div className="cardContainer">
           {personajesPresentados?.map((pokemon) => {
             return (
-              <div key={pokemon.id}>
-                <Link to={`/pokemons/${pokemon.id}`}>
+              <div key={pokemon.id} style={{ textDecoration: 'none'}}>
+                <Link to={`/pokemons/${pokemon.id}` }>
                   <Card
                     key={pokemon.id}
                     name={pokemon.name}
