@@ -152,7 +152,9 @@ router.post("/pokemons", async (req, res) => {
 router.get("/pokemons/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const pokemonsTotales = await getInfo(id);
+    const pokemonsAPI = await getInfo(id);
+    const pokemonsDB = await getInfoDB(id);
+    const pokemonsTotales = pokemonsDB.concat(pokemonsAPI)
     if (id) {
       let pokemonBuscado = await pokemonsTotales.filter(
         (pokemons) => pokemons.id == id

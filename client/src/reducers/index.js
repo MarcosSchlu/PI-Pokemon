@@ -16,6 +16,7 @@ function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GETALLPOKEMONS":
       const nuevosapi = action.payload
+      if(nuevosapi.length<state.allPokemonsapi.length){return {...state}}
       const listaPokemonsdb = state.listaPokemonsdb
       const todos = nuevosapi.concat(listaPokemonsdb)
 
@@ -48,7 +49,7 @@ function rootReducer(state = initialState, action) {
     //OPCION RAPIDA
       const todosPokemons3 = state.allPokemons;
       let pokemonBuscado = todosPokemons3.filter((pokemons) =>
-        pokemons.name.toLowerCase().includes(action.payload.toLowerCase())
+        pokemons.name.toLowerCase() === action.payload.toLowerCase()
       );
       return {
         ...state,
@@ -58,19 +59,6 @@ function rootReducer(state = initialState, action) {
 
 /*       //OPCION LENTA
       return { ...state, pokemons: action.payload }; */
-
-
-/*       case "GETPOKEMONSNAMEBUSQUEDA":
-          //OPCION RAPIDA
-          const todosPokemons4 = state.allPokemons;
-          let pokemonBuscado4 = todosPokemons4.filter((pokemons) =>
-            pokemons.name.toLowerCase().includes(action.payload.toLowerCase())
-          );
-          return {
-            ...state,
-            allBusqueda: action.payload === "" ? state.vacio : pokemonBuscado4,
-          };
- */
 
       
     case "FILTROPORTIPO":

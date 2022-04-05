@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import pokemon from "../img/pokemon.png";
 import henry from "../img/logo-white.png";
+import pokemones from "../img/71cdbfdb4f250bbf45a58000dc52eb82bf036be0r1-200-178_hq.gif";
 import foto from "../img/foto.jpeg";
 import github from "../img/25231.png";
 import "./LandingPage.css";
@@ -57,15 +58,15 @@ export default function landingPage() {
               </div>
             </div>
             <div className="marcos">
+
               <div className="ubi">
                 <div className="nombre">
-                  <p className="nomnrenombre">Marcos</p>
-                  <p className="nomnrenombre3">Schlusselblum</p>
+                  <p className="nomnrenombrelanding">Marcos Schlusselblum</p>
                   <div className="nomnrenombre2"></div>
                 </div>
                 <div className="weee">
                   <img src={foto} className="imagenmarcos" alt='img not found'></img>
-                  <p className="desc">bla bla bla</p>
+                  <img src={pokemones} alt="no se enconto la imagen" className="desc" />
                 </div>
                 <div className="redes">
                   <a href="https://github.com/MarcosSchlu">

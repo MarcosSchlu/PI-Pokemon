@@ -6,11 +6,12 @@ import "./Crear.css";
 import pokemon from "../img/pokemon.png";
 
 function validacion(input) {
+  
 let errores = {}
 if (!input.name) {
   errores.name = "Se requiere un nombre"
 }
-if (!input.img) {
+if (input.img.length < 1) {
   errores.img = "Se requiere una imagen"
 }
 if (input.vida < 1 || input.vida > 100) {
@@ -31,8 +32,8 @@ if (input.altura < 1 || input.vida > 100) {
 if (input.peso < 1 || input.vida > 100) {
   errores.peso = "Se requiere un valor de peso entre 1 y 100"
 }
-if (!input.tipo) {
-  errores.tipo = "Debe seleccionar por lo menos un tipo"
+if (input.tipo.length > 2 || input.tipo.length < 1) {
+  errores.tipo = "Se requiere al menos 1 tipo y un maximo de 2"
 }
 return errores
 }
@@ -42,6 +43,7 @@ const CrearPokemon = () => {
 
   const [input, setInput] = useState({
     name: "",
+    img: "",
     vida: 0,
     fuerza: 0,
     defensa: 0,
@@ -49,8 +51,9 @@ const CrearPokemon = () => {
     altura: 0,
     peso: 0,
     tipo: [],
-    img: "",
   });
+
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,28 +72,42 @@ const CrearPokemon = () => {
   function handleCheck(e) {
     if (input.tipo.includes(e.target.value)) {
       input.tipo = input.tipo.filter((tipo) => tipo !== e.target.value);
-      setInput({ ...input, tipo: input.tipo });
+      setInput((prevInput) => {
+        const newInput = { ...prevInput, tipo: input.tipo } ;
+      const validaciones = validacion(newInput)
+      setErrores(validaciones) 
+      return newInput 
+    })
     } else {
-      setInput({ ...input, tipo: [...input.tipo, e.target.value] });
+      setInput((prevInput) => {
+      const newInput = { ...prevInput, tipo: [...input.tipo, e.target.value] } ;
+      const validaciones = validacion(newInput)
+      setErrores(validaciones) 
+      return newInput 
+    })
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(crearPokemon(input));
-    alert("Pokemon creado");
-    setInput({
-      name: "",
-      vida: 0,
-      fuerza: 0,
-      defensa: 0,
-      velocidad: 0,
-      altura: 0,
-      peso: 0,
-      tipo: [],
-      img: "",
-    });
-    navigate("/home");
+    if(Object.values(errores).length < 1) {
+      dispatch(crearPokemon(input));
+      alert("Pokemon creado");
+      setInput({
+        name: "",
+        img: "",
+        vida: 0,
+        fuerza: 0,
+        defensa: 0,
+        velocidad: 0,
+        altura: 0,
+        peso: 0,
+        tipo: [],
+      });
+      navigate("/home");
+    } else {
+      alert("Para poder crear el pokemon no debe registrar errores");
+    }
   }
 
   return (
@@ -127,7 +144,7 @@ const CrearPokemon = () => {
               </div>
 
               <div className="nombrenuevo">
-                <label className="labelnombrenuevo5">Imagen </label>
+                <label className="labelnombrenuevo5">Imagen</label>
                 <div className="inputttt5">
                   <input
                     className="inputname5"
@@ -266,7 +283,8 @@ const CrearPokemon = () => {
             </div>
             <div className="columna3">
             {errores.name && (<p className="error">{errores.name}</p>)}
-            {errores.imagen && (<p className="error">{errores.imagen}</p>)}
+            {errores.names && (<p className="error">{errores.names}</p>)}
+            {errores.img && (<p className="error">{errores.img}</p>)}
             {errores.vida && (<p className="error">{errores.vida}</p>)}
             {errores.fuerza && (<p className="error">{errores.fuerza}</p>)}
             {errores.defensa && (<p className="error">{errores.defensa}</p>)}
