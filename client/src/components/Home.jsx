@@ -28,7 +28,7 @@ export default function Home() {
   });
 
   // PAGINADO
-  const [paginaActual, setPaginaActual] = useState(1);
+  let [paginaActual, setPaginaActual] = useState(1);
   const [pokemonsPorPagina, setPokemonsPorPagina] = useState(12);
 
   const indiceUltimopersonaje = paginaActual * pokemonsPorPagina;
