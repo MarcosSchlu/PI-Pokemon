@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+/*   getPokemons, */
   filtrarPorTipo,
   filtrarPorCreado,
   borrarFiltros,
@@ -44,6 +45,7 @@ export default function Home() {
   useEffect(() => {
     console.log("Atrapando pokemons nuevos....");
     dispatch(getPokemonsDB());
+/*     dispatch(getPokemons()); */
   }, [dispatch]);
 
   function borrarFiltro(e) {

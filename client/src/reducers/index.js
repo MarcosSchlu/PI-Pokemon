@@ -8,7 +8,8 @@ const initialState = {
   filtrostipo: [],
   filtroscreado: [],
   vacio: [],
-  listaPokemonsdb: []
+  listaPokemonsdb: [],
+  allBusqueda: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -58,6 +59,18 @@ function rootReducer(state = initialState, action) {
 /*       //OPCION LENTA
       return { ...state, pokemons: action.payload }; */
 
+
+/*       case "GETPOKEMONSNAMEBUSQUEDA":
+          //OPCION RAPIDA
+          const todosPokemons4 = state.allPokemons;
+          let pokemonBuscado4 = todosPokemons4.filter((pokemons) =>
+            pokemons.name.toLowerCase().includes(action.payload.toLowerCase())
+          );
+          return {
+            ...state,
+            allBusqueda: action.payload === "" ? state.vacio : pokemonBuscado4,
+          };
+ */
 
       
     case "FILTROPORTIPO":

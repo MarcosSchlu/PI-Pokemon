@@ -111,6 +111,14 @@ export function getPokemonsPorName(name) {
   };
 }
 
+/* export function getPokemonsBusqueda(name) {
+  return async function (dispatch) {
+    dispatch({
+      type: "GETPOKEMONSNAMEBUSQUEDA",
+      payload: name,
+    });
+  };
+} */
 
 export function getPokemonsDB() {
   return async function (dispatch) {
