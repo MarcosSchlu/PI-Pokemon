@@ -44,6 +44,8 @@ function rootReducer(state = initialState, action) {
       return { ...state, pokemon: action.payload };
     case "BORRARPOKEMON":
       return { ...state, pokemon: [] };
+      case "BORRARBUSQUEDA":
+        return { ...state, allBusqueda: [] };
     case "GETPOKEMONSNAME":
       //OPCION RAPIDA
       const todosPokemons3 = state.allPokemons;
@@ -176,7 +178,24 @@ function rootReducer(state = initialState, action) {
         allPokemons: [...arregloOrdenado3],
       };
 
-
+      case "GETPOKEMONSBUSQUEDA":
+        console.log(action.payload)
+        if (action.payload.length > 1) {
+          const todosPokemons9 = state.allPokemons;
+          let pokemonBuscado9 = todosPokemons9?.filter(
+            (pokemons) =>
+              pokemons.name.toLowerCase().includes(action.payload.toLowerCase())
+          );
+          console.log(pokemonBuscado9)
+          return {
+            ...state,
+            allBusqueda: action.payload === "" ? state.vacio : pokemonBuscado9
+          };
+        }
+        return {
+          ...state,
+          allBusqueda: state.vacio
+        };
 
 
     case "ORDENARYFILTRAR":

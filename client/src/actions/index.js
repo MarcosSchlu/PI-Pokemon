@@ -116,3 +116,18 @@ export function filtrar(filtros) {
     payload: filtros,
   };
 }
+
+export function getPokemonsBusqueda(name) {
+  return async function (dispatch) {
+    dispatch({
+      type: "GETPOKEMONSBUSQUEDA",
+      payload: name,
+    });
+  };
+}
+
+export function borrarbusqueda(filtros) {
+  return {
+    type: "BORRARBUSQUEDA",
+  };
+}

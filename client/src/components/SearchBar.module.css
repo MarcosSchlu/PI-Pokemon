@@ -1,5 +1,6 @@
 .inputSpace {
   padding: 80px;
+  padding-bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,6 +12,8 @@
   width: 300px;
   margin: 10px;
   padding: 10px;
+  padding-left: 50px;
+  left: 20px;
   border-radius: 10px;
   box-shadow: 5px 5px 5px rgb(57, 95, 170);
   text-decoration: none;
@@ -26,16 +29,56 @@
   font-weight: bold;
 }
 .lupa {
+  position: absolute;
   border: 10px;
-  margin: 10px;
-  margin-left: -40px;
+  margin-left: -150px;
   background-color: white;
+  width: 20px;
 }
 
-.lupa:hover {
+.lupa:hover{
+}
+
+.cruz {
+  position: absolute;
+  border: 10px;
+  margin-left: 150px;
   background-color: white;
-} 
+  width: 15px;
+}
 
 .header {
   background-color: yellow;
+}
+
+.inputSpace2{
+  margin: -15px;
+/*   display: flex; */
+/*   justify-content: center;
+  align-items: center; */
+}
+
+.inputSeach2{
+  justify-content:left;
+  border: none;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgb(57, 95, 170);
+  text-decoration: none;
+  outline: none;
+  color: rgb(57, 95, 170);
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 15px;
+  background-color: white;
+}
+
+.resu{
+  position: absolute;
+  z-index: 5;
+  margin-left: 38%;
+  margin-right: 38%;
+  width: 300px;
 }
