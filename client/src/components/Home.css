@@ -66,18 +66,15 @@
 .padre {
   grid-template-columns: minmax(100vw, 1fr);
   grid-template-rows: minmax(100vh, 1fr);
-/*   justify-content: center; */
-/*   align-self: center; */
   display: grid;
-  grid-template-rows: 1fr /* 1fr 1fr 1fr */;
+  grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 20px;
   grid-row-gap: 10px;
-/*   max-width: 1200px; */
   margin-top: 15px;
   padding-left: 25px;
   padding-right: 20px;
-  height: auto;
+  min-height: 40px;
 }
 
 .Filtrosva {
@@ -99,7 +96,7 @@
   align-items: center;
 }
 .labelver2{
-  padding-left: 10px;
+  margin-left: -35px;
 }
 .filaorden2 {
   grid-row-start: 1;
@@ -141,7 +138,7 @@
   font-family: sans-serif;
   font-weight: bold;
   color: rgb(57, 95, 170);
-  padding: 0.6em 1.4em 0.5em 0.8em;
+  padding: 0.6em 1.9em 0.5em 0.8em;
   border-radius: 10px;
   outline: none;
   box-shadow: 3px 3px 3px rgb(57, 95, 170);
@@ -166,7 +163,6 @@
   flex-wrap: wrap;
   text-decoration: none;
   margin-top: -40px;
-  z-index: 2;
 }
 
 .padre2 {
@@ -179,7 +175,6 @@
   grid-template-columns: 20% 80% ;
   grid-column-gap: 20px;
   grid-row-gap: 10px;
-/*   max-width: 1200px; */
   margin-top: 40px;
   padding-left: 25px;
   padding-right: 20px;
@@ -213,7 +208,7 @@
   grid-template-rows: auto auto auto auto auto;
   grid-template-columns: 100% ;
   grid-row-gap: 20px;
-  height: auto;
+  min-height: auto;
 }
 
 .Filtros1 {
@@ -270,7 +265,6 @@ padding-top: 5px;
   width: 500PX;
   left: 200PX;
   color: rgb(57, 95, 170);;
-/*   z-index: -5; */
 }
 
 
@@ -286,4 +280,5 @@ padding-top: 5px;
   text-decoration: none;
   margin-top: -35px;
   background-color: yellow;
+
 }

@@ -1,7 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { borrarFiltros, Ordenar, getPokemons, filtrar, tiposenUso, borrarPokemon } from "../actions";
+import {
+  borrarFiltros,
+  Ordenar,
+  getPokemons,
+  filtrar,
+  tiposenUso,
+  borrarPokemon,
+} from "../actions";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -76,8 +83,6 @@ export default function Home() {
     setPaginaActual(1);
   }
 
-  
-
   return (
     <div className="all5">
       <div className="imagen6">
@@ -95,12 +100,11 @@ export default function Home() {
       <div className="padre">
         <div className="Filtrosva">
           <div className="CantidadPokemons">
-            { allPokemons?.length ? 
-            <p>{allPokemons?.length} POKEMONS CAPTURADOS</p> :
-            <p></p>
-            }
-
-            
+            {allPokemons?.length ? (
+              <p>{allPokemons?.length} POKEMONS CAPTURADOS</p>
+            ) : (
+              <p></p>
+            )}
           </div>
         </div>
         <div className="Paginado">
@@ -111,7 +115,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="filaorden1">
+        <div className="filaorden2">
           <div className="labelver2"></div>
           <label className="idelabel">ORDENAR</label>
           <select
@@ -129,7 +133,7 @@ export default function Home() {
           </select>
         </div>
 
-        <div className="filaorden2">
+        <div className="filaorden1">
           <div className="labelver">
             <label className="idelabel">VER</label>
           </div>
@@ -206,7 +210,27 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="cardContainer">
+        {allPokemons?.length < 2 && allPokemons?.length > 0 ? (
+          allPokemons?.map((pokemon) => {
+            return (
+              <div className="cardContainer9" key={pokemon.id}>
+                <Link
+                  to={`/pokemons/${pokemon.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Card
+                    key={pokemon.name}
+                    name={pokemon.name}
+                    tipo={pokemon.tipo}
+                    imagen={pokemon.img}
+                    fuerza={pokemon.fuerza}
+                  />
+                </Link>
+              </div>
+            );
+          })
+        ) : (
+          <div className="cardContainer" key="999999">
           {personajesPresentados?.length > 1 ? (
             personajesPresentados?.map((pokemon) => {
               return (
@@ -227,47 +251,14 @@ export default function Home() {
               );
             })
           ) : (
-            <div className="buscando2">
-            
+            <div key="1000">
+              <div className="buscando2" key="10000">
+                <h1 className="buscando2">No se encontraron pokemons</h1>
+              </div>
             </div>
           )}
         </div>
-
-          {allPokemons?.length < 2 ? (
-            allPokemons?.map((pokemon) => {
-              return (
-                <div className="cardContainer9">
-                <div key={pokemon.id}>
-                  <Link
-                    to={`/pokemons/${pokemon.id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Card
-                      key={pokemon.id}
-                      name={pokemon.name}
-                      tipo={pokemon.tipo}
-                      imagen={pokemon.img}
-                      fuerza={pokemon.fuerza}
-                    />
-                  </Link>
-                </div>
-            </div>
-              );
-            })
-          ) : (
-            <div >
-          {allPokemons?.length < 1 ? (
-              <div className="buscando2">
-                <h1 className="buscando2">No se encontraron pokemons</h1>
-              </div>
-           ) : (
-            <div>
-            </div>
-          )}
-            </div>
-          )}
-
-
+        )}
       </div>
       <div className="Paginado2">
         <Paginado
