@@ -3,7 +3,7 @@ import "./Card.css";
 
 let prevId = 1;
 
-export default function Card({ name, tipo, imagen, id }) {
+export default function Card({ name, tipo, imagen, fuerza }) {
     return (
           <div className="cardWrapper">
             <h3 className="card-title">{name}</h3>
@@ -23,6 +23,7 @@ export default function Card({ name, tipo, imagen, id }) {
                   </div>
                 );
               })}
+{/*               <h5 className="cardtype">{fuerza}</h5> */}
             </div>
           </div>
     );

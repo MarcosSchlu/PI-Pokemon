@@ -53,8 +53,6 @@ const CrearPokemon = () => {
     tipo: [],
   });
 
-
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const tipo = useSelector((state) => state.tipos);
@@ -90,21 +88,26 @@ const CrearPokemon = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    
     if(Object.values(errores).length < 1) {
-      dispatch(crearPokemon(input));
-      alert("Pokemon creado");
-      setInput({
-        name: "",
-        img: "",
-        vida: 0,
-        fuerza: 0,
-        defensa: 0,
-        velocidad: 0,
-        altura: 0,
-        peso: 0,
-        tipo: [],
-      });
-      navigate("/home");
+      if(input.name === ""){
+        alert("Debe completar el formulario para crear el Pokemon");
+      } else {
+        dispatch(crearPokemon(input));
+        alert("Pokemon creado");
+        setInput({
+          name: "",
+          img: "",
+          vida: 0,
+          fuerza: 0,
+          defensa: 0,
+          velocidad: 0,
+          altura: 0,
+          peso: 0,
+          tipo: [],
+        });
+        navigate("/home");
+      }
     } else {
       alert("Para poder crear el pokemon no debe registrar errores");
     }
@@ -167,8 +170,6 @@ const CrearPokemon = () => {
                     name="vida"
                     onChange={(e) => handleChange(e)}
                     value={input.vida}
-                    min="1" 
-                    max="100"
                   />
                 </div>
               </div>
@@ -181,8 +182,6 @@ const CrearPokemon = () => {
                     name="fuerza"
                     onChange={(e) => handleChange(e)}
                     value={input.fuerza}
-                    min="1" 
-                    max="150"
                   />
                 </div>
               </div>
@@ -196,8 +195,6 @@ const CrearPokemon = () => {
                     name="defensa"
                     onChange={(e) => handleChange(e)}
                     value={input.defensa}
-                    min="1" 
-                    max="150"
                   />
                 </div>
                 </div>
@@ -213,8 +210,6 @@ const CrearPokemon = () => {
                     name="velocidad"
                     onChange={(e) => handleChange(e)}
                     value={input.velocidad}
-                    min="1" 
-                    max="100"
                   />
                 </div>
               </div>
@@ -228,8 +223,6 @@ const CrearPokemon = () => {
                     name="altura"
                     onChange={(e) => handleChange(e)}
                     value={input.altura}
-                    min="1" 
-                    max="100"
                   />
                 </div>
               </div>
@@ -243,8 +236,6 @@ const CrearPokemon = () => {
                     name="peso"
                     onChange={(e) => handleChange(e)}
                     value={input.peso}
-                    min="1" 
-                    max="100"
                   />
                 </div>
               </div>

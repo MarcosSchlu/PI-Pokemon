@@ -1,14 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  /*   getPokemons, */
-  filtrarPorTipo,
-  filtrarPorCreado,
-  borrarFiltros,
-  Ordenar,
-  getPokemonsDB,
-} from "../actions";
+import { borrarFiltros, Ordenar, getPokemonsDB, filtrar } from "../actions";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -33,7 +26,7 @@ export default function Home() {
 
   const indiceUltimopersonaje = paginaActual * pokemonsPorPagina;
   const firstRecipePage = indiceUltimopersonaje - pokemonsPorPagina;
-  const personajesPresentados = allPokemons.slice(
+  const personajesPresentados = allPokemons?.slice(
     firstRecipePage,
     indiceUltimopersonaje
   );
@@ -45,15 +38,17 @@ export default function Home() {
   useEffect(() => {
     console.log("Atrapando pokemons nuevos....");
     dispatch(getPokemonsDB());
-    /*     dispatch(getPokemons()); */
   }, [dispatch]);
 
   function borrarFiltro(e) {
     e.preventDefault();
     console.log("Borrando filtros....");
-    dispatch(borrarFiltros());
-    setFiltros({ ...filtros, creado: "", Tipo: "" });
-    setPaginaActual(1);
+    dispatch(borrarFiltros(filtros.orden));
+    setFiltros((prevFiltros) => {
+      const newFiltros = { ...prevFiltros, creado: "", Tipo: "" };
+      setPaginaActual(1);
+      return newFiltros;
+    });
   }
 
   function handleCantidad(e) {
@@ -62,26 +57,24 @@ export default function Home() {
     setPaginaActual(1);
   }
 
-  function handleFiltroTipo(e) {
+  function handleFiltros(e) {
     e.preventDefault();
-    setFiltros({ ...filtros, [e.target.name]: e.target.value, creado: "" });
-    dispatch(filtrarPorTipo(e.target.value));
-    setPaginaActual(1);
-  }
-
-  function handleFiltroCreado(e) {
-    e.preventDefault();
-    setFiltros({ ...filtros, [e.target.name]: e.target.value, Tipo: "" });
-    dispatch(filtrarPorCreado(e.target.value));
-    setPaginaActual(1);
+    setFiltros((prevFiltros) => {
+      const newFiltros = { ...prevFiltros, [e.target.name]: e.target.value };
+      dispatch(filtrar(newFiltros));
+      setPaginaActual(1);
+      return newFiltros;
+    });
   }
 
   function handleOrden(e) {
     e.preventDefault();
+    setFiltros({ ...filtros, orden: e.target.value });
     dispatch(Ordenar(e.target.value));
     setPaginaActual(1);
-    setFiltros({ ...filtros, [e.target.name]: e.target.value });
   }
+
+  
 
   return (
     <div className="all5">
@@ -100,13 +93,13 @@ export default function Home() {
       <div className="padre">
         <div className="Filtrosva">
           <div className="CantidadPokemons">
-            <p>{allPokemons.length} POKEMONS CAPTURADOS</p>
+            <p>{allPokemons?.length} POKEMONS CAPTURADOS</p>
           </div>
         </div>
         <div className="Paginado">
           <Paginado
             pokemonsPorPagina={pokemonsPorPagina}
-            allPokemons={allPokemons.length}
+            allPokemons={allPokemons?.length}
             paginado={paginado}
           />
         </div>
@@ -174,7 +167,7 @@ export default function Home() {
               <select
                 name="creado"
                 className="select-css"
-                onChange={(e) => handleFiltroCreado(e)}
+                onChange={(e) => handleFiltros(e)}
                 value={filtros.creado}
               >
                 <option value="">Todos</option>
@@ -189,7 +182,7 @@ export default function Home() {
               </div>
               <select
                 name="Tipo"
-                onChange={(e) => handleFiltroTipo(e)}
+                onChange={(e) => handleFiltros(e)}
                 className="select-css"
                 value={filtros.Tipo}
               >
@@ -207,31 +200,36 @@ export default function Home() {
         </div>
 
         <div className="cardContainer">
-          {personajesPresentados.length > 0 ? (
-              personajesPresentados?.map((pokemon) => {
-                return (
-                  <div key={pokemon.id}>
-                    <Link to={`/pokemons/${pokemon.id}`} style={{ textDecoration: "none" }}>
-                      <Card
-                        key={pokemon.id}
-                        name={pokemon.name}
-                        tipo={pokemon.tipo}
-                        imagen={pokemon.img}
-                      />
-                    </Link>
-                  </div>
-                );
-              })
-            ) : (
+          {personajesPresentados?.length > 0 ? (
+            personajesPresentados?.map((pokemon) => {
+              return (
+                <div key={pokemon.id}>
+                  <Link
+                    to={`/pokemons/${pokemon.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Card
+                      key={pokemon.id}
+                      name={pokemon.name}
+                      tipo={pokemon.tipo}
+                      imagen={pokemon.img}
+                      fuerza={pokemon.fuerza}
+                    />
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
             <div className="buscando2">
-            <h1 className="buscando2">No se encontraron pokemons</h1>
-          </div>)}
+              <h1 className="buscando2">No se encontraron pokemons</h1>
+            </div>
+          )}
         </div>
       </div>
       <div className="Paginado2">
         <Paginado
           pokemonsPorPagina={pokemonsPorPagina}
-          allPokemons={allPokemons.length}
+          allPokemons={allPokemons?.length}
           paginado={paginado}
         />
       </div>

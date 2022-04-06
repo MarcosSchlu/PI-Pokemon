@@ -44,30 +44,17 @@ export function getTipos() {
   };
 }
 
-export function filtrarPorTipo(payload) {
+export function Ordenar(payload) {
   return {
-    type: "FILTROPORTIPO",
+    type: "ORDENAR",
     payload: payload,
   };
 }
 
-export function filtrarPorCreado(payload) {
-  return {
-    type: "FILTROPORCREADO",
-    payload,
-  };
-}
-
-export function Ordenar(payload) {
-  return {
-    type: "ORDENAR",
-    payload,
-  };
-}
-
-export function borrarFiltros() {
+export function borrarFiltros(payload) {
   return {
     type: "BORRARFILTRO",
+    payload: payload,
   };
 }
 
@@ -82,9 +69,10 @@ export function getPokemonsPorID(id) {
   };
 }
 
-export function borrarPokemon() {
+export function borrarPokemon(orden) {
   return {
     type: "BORRARPOKEMON",
+    payload: orden,
   };
 }
 
@@ -118,5 +106,13 @@ export function getPokemonsDB() {
       type: "GETALLPOKEMONSDB",
       payload: data,
     });
+  };
+}
+
+
+export function filtrar(filtros) {
+  return {
+    type: "ORDENARYFILTRAR",
+    payload: filtros,
   };
 }

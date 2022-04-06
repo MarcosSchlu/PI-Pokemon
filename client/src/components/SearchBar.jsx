@@ -16,9 +16,14 @@ export default function NavBar() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Buscando a " + name);
-    dispatch(getPokemonsPorName(name));
-    setName("");
+    if(name === ""){
+      alert("No se ingreso ningun nombre a buscar");
+    } else {
+      console.log("Buscando a " + name);
+      dispatch(getPokemonsPorName(name));
+      setName("");
+      e.target.reset()
+    }
   }
 
   return (
