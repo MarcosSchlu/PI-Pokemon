@@ -154,11 +154,6 @@
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
 }
-/* .select-css::-ms-expand {
-  display: none;
-} */
-/* .select-css:hover {
-} */
 
 .cardContainer {
   grid-row-start: 1;
@@ -168,10 +163,10 @@
   max-width: 80vw;
   display: flex;
   flex-direction: row;
-  justify-content: center;   
   flex-wrap: wrap;
   text-decoration: none;
   margin-top: -40px;
+  z-index: 2;
 }
 
 .padre2 {
@@ -270,10 +265,12 @@ padding-top: 5px;
 
 .buscando2 {
   padding-top: 20px;
-  margin-left: -50px;
-  display: flex;
-  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 500PX;
+  left: 200PX;
   color: rgb(57, 95, 170);;
+/*   z-index: -5; */
 }
 
 
@@ -285,7 +282,6 @@ padding-top: 5px;
   max-width: 80vw;
   display: flex;
   flex-direction: row;
-/*   justify-content: center;   */ 
   flex-wrap: wrap;
   text-decoration: none;
   margin-top: -35px;

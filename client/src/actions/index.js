@@ -98,18 +98,6 @@ export function getPokemonsPorName(name) {
   };
 }
 
-export function getPokemonsDB() {
-  return async function (dispatch) {
-    const response = await fetch("http://localhost:3001/pokemonesdb");
-    const data = await response.json();
-    dispatch({
-      type: "GETALLPOKEMONSDB",
-      payload: data,
-    });
-  };
-}
-
-
 export function filtrar(filtros) {
   return {
     type: "ORDENARYFILTRAR",
@@ -129,5 +117,11 @@ export function getPokemonsBusqueda(name) {
 export function borrarbusqueda(filtros) {
   return {
     type: "BORRARBUSQUEDA",
+  };
+}
+
+export function tiposenUso() {
+  return {
+    type: "TIPOSENUSO",
   };
 }

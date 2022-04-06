@@ -5,17 +5,8 @@ import Home from "./components/Home";
 import Crear from "./components/Crear";
 import Detalle from "./components/Detalle";
 import PaginaInexistente from "./components/PaginaInexistente";
-import { getTipos, getPokemons } from "./actions/index";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTipos());
-    console.log("Atrapando pokemons....");
-    dispatch(getPokemons());
-  });
 
   return (
     <BrowserRouter>

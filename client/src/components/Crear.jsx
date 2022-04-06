@@ -1,6 +1,6 @@
-import React, { useState /* useEffect */ } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { crearPokemon /* getTipos */ } from "../actions";
+import { crearPokemon, getTipos } from "../actions";
 import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
 import pokemon from "../img/pokemon.png";
@@ -56,6 +56,10 @@ const CrearPokemon = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const tipo = useSelector((state) => state.tipos);
+
+  useEffect(() => {
+    dispatch(getTipos());
+  }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { borrarFiltros, Ordenar, getPokemonsDB, filtrar } from "../actions";
+import { borrarFiltros, Ordenar, getPokemons, filtrar, tiposenUso, borrarPokemon } from "../actions";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -13,7 +13,7 @@ import SearchBar from "./SearchBar";
 export default function Home() {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.pokemons);
-  const tipo = useSelector((state) => state.tipos);
+  const tiposUsados = useSelector((state) => state.tiposUsados);
   const [filtros, setFiltros] = useState({
     creado: "",
     Tipo: "",
@@ -37,7 +37,9 @@ export default function Home() {
 
   useEffect(() => {
     console.log("Atrapando pokemons nuevos....");
-    dispatch(getPokemonsDB());
+    dispatch(borrarPokemon());
+    dispatch(tiposenUso());
+    dispatch(getPokemons());
   }, [dispatch]);
 
   function borrarFiltro(e) {
@@ -192,10 +194,10 @@ export default function Home() {
                 value={filtros.Tipo}
               >
                 <option value="">Todos</option>
-                {tipo?.map((tipo) => {
+                {tiposUsados?.map((tipo) => {
                   return (
-                    <option value={tipo.name} key={tipo.id}>
-                      {tipo.name}
+                    <option value={tipo} key={tipo}>
+                      {tipo}
                     </option>
                   );
                 })}
@@ -205,7 +207,7 @@ export default function Home() {
         </div>
 
         <div className="cardContainer">
-          {personajesPresentados?.length > 0 ? (
+          {personajesPresentados?.length > 1 ? (
             personajesPresentados?.map((pokemon) => {
               return (
                 <div key={pokemon.id}>
@@ -226,7 +228,7 @@ export default function Home() {
             })
           ) : (
             <div className="buscando2">
-              <h1 className="buscando2">No se encontraron pokemons</h1>
+            
             </div>
           )}
         </div>
@@ -253,7 +255,15 @@ export default function Home() {
               );
             })
           ) : (
-            <div className="buscandop">
+            <div >
+          {allPokemons?.length < 1 ? (
+              <div className="buscando2">
+                <h1 className="buscando2">No se encontraron pokemons</h1>
+              </div>
+           ) : (
+            <div>
+            </div>
+          )}
             </div>
           )}
 

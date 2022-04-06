@@ -1,81 +1,76 @@
 const { Router } = require("express");
 const fetch = require("node-fetch");
-
-// MARCOS
-// IMPORTO DESDE BASE DE DATOS
 const { Pokemon, Tipo } = require("../db.js");
-
 const router = Router();
-// VER DE PASAR LIMIT POR VARIABLE Y QUE ID DE LOS QUE CREE SEA DESDE EL LIMIT+1 INCREMENTANDOSE
 
-// MARCOS
-// FUNCION ASYNCONA QUE TRAE TODA LA INFORMACION DE LA API y DE LA BASE DE DATOS (ICLUYENDO LOS TIPOS POR EL ATRIBUTO NOMBRE)
 const getInfo = async () => {
   try {
-    const api = await fetch("https://pokeapi.co/api/v2/pokemon?limit=40");
-    const infoApi = await api.json();
-/*     const infoDB = await Pokemon.findAll({ include: Tipo }); */
-
-    // CONCATENO LA INFO DE LA API CON LA INFO DE LA BASE DE DATOS
-    let infoTotal = [/* ...infoDB, */ ...infoApi.results];
-
-    // OBTENGO TODA LA INFO Y LA PUSHEO CON LA INFO QUE NECESITO
-
-    let pokemonInfo = [];
-
-    for (i = 0; i < infoTotal.length; i++) {
-      if (!infoTotal[i]) return pokemonInfo;
-      if (infoTotal[i].url) {
-        const pokemon = await fetch(infoTotal[i].url);
-        const infoPokemon = await pokemon.json();
-        const newPokemon = {
-          id: infoPokemon.id,
-          name: infoPokemon.name.toLowerCase(),
-          tipo: infoPokemon.types.map((tipo) => tipo.type.name),
-          img: infoPokemon.sprites.other.dream_world.front_default,
-          fuerza: infoPokemon.stats[1].base_stat,
-          vida: infoPokemon.stats[0].base_stat,
-          defensa: infoPokemon.stats[2].base_stat,
-          velocidad: infoPokemon.stats[5].base_stat,
-          altura: infoPokemon.height,
-          peso: infoPokemon.weight,
-        };
-        if (pokemonInfo.indexOf(newPokemon) === -1) {
-          pokemonInfo.push(newPokemon);
-        } else {
-          return pokemonInfo;
-        }
-/*       } else {
-        const newPokemon = {
-          id: infoTotal[i].id,
-          name: infoTotal[i].name.toLowerCase(),
-          tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
-          img: infoTotal[i].img,
-          fuerza: infoTotal[i].fuerza,
-          vida: infoTotal[i].vida,
-          defensa: infoTotal[i].defensa,
-          velocidad: infoTotal[i].velocidad,
-          altura: infoTotal[i].altura,
-          peso: infoTotal[i].peso,
-          db: infoTotal[i].db,
-        };
-        if (pokemonInfo.indexOf(newPokemon) === -1) {
-          pokemonInfo.push(newPokemon);
-        } else {
-          return pokemonInfo;
-        } */
-      }
-    }
-    return pokemonInfo;
+    const pokemonInfo2 = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=40"
+    )
+      .then((infoApi) => infoApi.json())
+      .then(async (infoApiJson) => {
+        const pokemonInfo = await Promise.all(
+          infoApiJson.results.map((infoTotal) =>
+            fetch(infoTotal.url)
+              .then((pokemon) => pokemon.json())
+              .then(
+                (pokemonJson) =>
+                  (newPokemon = {
+                    id: pokemonJson.id,
+                    name: pokemonJson.name.toLowerCase(),
+                    tipo: pokemonJson.types.map((tipo) => tipo.type.name),
+                    img: pokemonJson.sprites.other.dream_world.front_default,
+                    fuerza: pokemonJson.stats[1].base_stat,
+                    vida: pokemonJson.stats[0].base_stat,
+                    defensa: pokemonJson.stats[2].base_stat,
+                    velocidad: pokemonJson.stats[5].base_stat,
+                    altura: pokemonJson.height,
+                    peso: pokemonJson.weight,
+                  })
+              )
+              .then((newPokemon) => {
+                return newPokemon;
+              })
+          )
+        );
+        return pokemonInfo;
+      });
+    return pokemonInfo2;
   } catch (error) {
     res.send(error);
   }
 };
 
+const getInfoDB = async () => {
+  const infoDB = await Pokemon.findAll({ include: Tipo });
+  let infoTotal = [...infoDB];
+  let pokemonInfo = [];
+  if (!infoTotal.length) return pokemonInfo;
+  for (i = 0; i < infoTotal.length; i++) {
+    pokemonInfo.push({
+      id: infoTotal[i].id,
+      name: infoTotal[i].name.toLowerCase(),
+      tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
+      img: infoTotal[i].img,
+      fuerza: infoTotal[i].fuerza,
+      vida: infoTotal[i].vida,
+      defensa: infoTotal[i].defensa,
+      velocidad: infoTotal[i].velocidad,
+      altura: infoTotal[i].altura,
+      peso: infoTotal[i].peso,
+      db: infoTotal[i].db,
+    });
+  }
+  return pokemonInfo;
+};
+
 router.get("/pokemons", async (req, res) => {
   try {
     const { name } = req.query;
-    let pokemonsTotales = await getInfo();
+    let pokemonsAPI = await getInfo();
+    let pokemonsDB = await getInfoDB();
+    let pokemonsTotales = pokemonsAPI.concat(pokemonsDB);
     if (name) {
       let pokemonBuscado = pokemonsTotales.filter((pokemons) =>
         pokemons.name.toLowerCase().includes(name.toLowerCase())
@@ -154,9 +149,9 @@ router.get("/pokemons/:id", async (req, res) => {
     const id = req.params.id;
     const pokemonsAPI = await getInfo(id);
     const pokemonsDB = await getInfoDB(id);
-    const pokemonsTotales = pokemonsDB.concat(pokemonsAPI)
+    const pokemonsTotales = pokemonsDB.concat(pokemonsAPI);
     if (id) {
-      let pokemonBuscado = await pokemonsTotales.filter(
+      let pokemonBuscado = pokemonsTotales.filter(
         (pokemons) => pokemons.id == id
       );
       if (pokemonBuscado.length) {
@@ -167,38 +162,6 @@ router.get("/pokemons/:id", async (req, res) => {
     } else {
       res.status(200).send(pokemonsTotales);
     }
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-const getInfoDB = async () => {
-  const infoDB = await Pokemon.findAll({ include: Tipo });
-  let infoTotal = [...infoDB];
-  let pokemonInfo = [];
-  if (!infoTotal.length) return pokemonInfo;
-  for (i = 0; i < infoTotal.length; i++) {
-    pokemonInfo.push({
-      id: infoTotal[i].id,
-      name: infoTotal[i].name.toLowerCase(),
-      tipo: infoTotal[i].tipos.map((tipo) => tipo.name),
-      img: infoTotal[i].img,
-      fuerza: infoTotal[i].fuerza,
-      vida: infoTotal[i].vida,
-      defensa: infoTotal[i].defensa,
-      velocidad: infoTotal[i].velocidad,
-      altura: infoTotal[i].altura,
-      peso: infoTotal[i].peso,
-      db: infoTotal[i].db,
-    });
-  }
-  return pokemonInfo;
-};
-
-router.get("/pokemonesdb", async (req, res) => {
-  try {
-    let pokemonsTotales = await getInfoDB();
-    res.status(200).send(pokemonsTotales);
   } catch (error) {
     res.send(error);
   }

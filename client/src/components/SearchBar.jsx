@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./SearchBar.module.css";
 import { useState } from "react";
-import lupa from "../img/lupa.svg";
-import cruz from "../img/cancel-svgrepo-com.svg";
+import lupa from "../img/lupi.png";
+import cruz from "../img/cancel2.png";
 import {
   getPokemonsPorName,
   getPokemonsBusqueda,
@@ -26,7 +26,6 @@ export default function NavBar() {
     e.preventDefault();
     setName("");
     dispatch(borrarbusqueda());
-    e.target.reset();
   }
 
   function handleSubmit(e) {
@@ -38,7 +37,6 @@ export default function NavBar() {
       dispatch(getPokemonsPorName(name));
       dispatch(borrarbusqueda());
       setName("");
-      e.target.reset();
     }
   }
 
@@ -72,13 +70,17 @@ export default function NavBar() {
           alt="img not found"
           onSubmit={handleSubmit}
         />
+        {name.length > 0 ? (
           <img
-          type="button"
-          className={`${styles.cruz}`}
-          src={cruz}
-          alt="img not found"
-          onClick={handleBorrar}
-        />
+            type="button"
+            className={`${styles.cruz}`}
+            src={cruz}
+            alt="img not found"
+            onClick={handleBorrar}
+          />
+        ) : (
+          <div></div>
+        )}
       </div>
       <div className={`${styles.resu}`}>
         {allBusqueda?.length > 0 ? (
@@ -96,7 +98,17 @@ export default function NavBar() {
             );
           })
         ) : (
-          <div></div>
+          <div>
+            {name.length > 1 && allBusqueda?.length < 1 ? (
+              <div key={500} className={`${styles.inputSpace2}`}>
+                <option className={`${styles.inputSeach2}`}>
+                  NO SE ENCONTRARON RESULTADOS
+                </option>
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
         )}
       </div>
     </div>
