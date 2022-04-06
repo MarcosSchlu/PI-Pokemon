@@ -93,7 +93,12 @@ export default function Home() {
       <div className="padre">
         <div className="Filtrosva">
           <div className="CantidadPokemons">
-            <p>{allPokemons?.length} POKEMONS CAPTURADOS</p>
+            { allPokemons?.length ? 
+            <p>{allPokemons?.length} POKEMONS CAPTURADOS</p> :
+            <p></p>
+            }
+
+            
           </div>
         </div>
         <div className="Paginado">
@@ -225,6 +230,34 @@ export default function Home() {
             </div>
           )}
         </div>
+
+          {allPokemons?.length < 2 ? (
+            allPokemons?.map((pokemon) => {
+              return (
+                <div className="cardContainer9">
+                <div key={pokemon.id}>
+                  <Link
+                    to={`/pokemons/${pokemon.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Card
+                      key={pokemon.id}
+                      name={pokemon.name}
+                      tipo={pokemon.tipo}
+                      imagen={pokemon.img}
+                      fuerza={pokemon.fuerza}
+                    />
+                  </Link>
+                </div>
+            </div>
+              );
+            })
+          ) : (
+            <div className="buscandop">
+            </div>
+          )}
+
+
       </div>
       <div className="Paginado2">
         <Paginado
