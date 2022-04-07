@@ -98,7 +98,7 @@ router.get("/types", async (req, res) => {
       });
     }
     const todosLosTipo = await Tipo.findAll();
-    res.send(todosLosTipo);
+    res.status(200).send(todosLosTipo);
   } catch (error) {
     res.send(error);
   }
@@ -108,23 +108,23 @@ router.post("/pokemons", async (req, res) => {
   let { name, vida, fuerza, defensa, velocidad, altura, peso, tipo, img } =
     req.body;
 
-  if (!name) return res.json({ info: "El nombre es una campo obligatorio" });
+  if (!name) return res.json({ info: 'SE REQUIERE UN NOMBRE VALIDO' });
   if (isNaN(vida))
     return res.json({ info: "La vida ingresada no es un numero" });
   if (isNaN(fuerza))
-    return res.json({ info: "La fuerza ingresada no es un numero" });
+    return res.json({ info: "EL VALOR INGRESADO COMO FUERZA NO CORRESPONDE A UN NUMERO" });
   if (isNaN(defensa))
-    return res.json({ info: "La defensa ingresada no es un numero" });
+    return res.json({ info: "EL VALOR INGRESADO COMO DEFENSA NO CORRESPONDE A UN NUMERO" });
   if (isNaN(velocidad))
-    return res.json({ info: "La velocidad ingresada no es un numero" });
+    return res.json({ info: "EL VALOR INGRESADO COMO VELOCIDAD NO CORRESPONDE A UN NUMERO" });
   if (isNaN(altura))
-    return res.json({ info: "La altura ingresada no es un numero" });
+    return res.json({ info: "EL VALOR INGRESADO COMO ALTURA NO CORRESPONDE A UN NUMERO" });
   if (isNaN(peso))
-    return res.json({ info: "El peso ingresada no es un numero" });
+    return res.json({ info: "EL VALOR INGRESADO COMO PESO NO CORRESPONDE A UN NUMERO" });
 
   const existe = await Pokemon.findOne({ where: { name: name } });
   if (existe)
-    return res.json({ info: "El nombre del Pokemon ingresado ya existe" });
+    return res.json({ info: "EL VALOR INGRESADO COMO NOMBRE PERTENECE A UN POKEMON DE LA BASE DE DATOS" });
 
   let pokemonCreado = await Pokemon.create({
     name: name,
@@ -175,6 +175,13 @@ router.delete('/clear/:id', async (req, res) => {
   res.redirect('/home')
 });
 
-
+router.get("/pokemonesdb", async (req, res) => {
+  try {
+    let pokemonsTotales = await getInfoDB();
+    res.status(200).send(pokemonsTotales);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 module.exports = router;

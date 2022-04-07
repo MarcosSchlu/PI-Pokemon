@@ -7,6 +7,7 @@ import {
   getPokemons,
   filtrar,
   borrarPokemon,
+  /* getPokemonsDB */
 } from "../actions";
 import "./Home.css";
 import { Link } from "react-router-dom";
@@ -18,6 +19,7 @@ import SearchBar from "./SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const allPokemones = useSelector((state) => state.allPokemons);
   const allPokemons = useSelector((state) => state.pokemons);
   const tiposUsados = useSelector((state) => state.tiposUsados);
   const [filtros, setFiltros] = useState({
@@ -42,9 +44,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log("Atrapando pokemons nuevos....");
-    dispatch(borrarPokemon());
+    /*     dispatch(getPokemonsDB()); */
     dispatch(getPokemons());
+    dispatch(borrarPokemon());
+    console.log("Atrapando pokemons nuevos....");
   }, [dispatch]);
 
   function borrarFiltro(e) {
@@ -83,188 +86,198 @@ export default function Home() {
 
   return (
     <div className="all5">
-      <div className="imagen6">
-        <img src={pokemon} width="250px" alt="img not found" />
-      </div>
-
-      <Link to="/pokemons/crear">
-        <div className="crearPokemon">
-          <img src={apokemon} className="iconosumar" alt="img not found" />
+      {allPokemones?.length < 1 ? (
+        <div>
+          <div className="buscando2" key="10000">
+            <h1 className="buscando2">No se encontraron pokemons</h1>
+          </div>
         </div>
-      </Link>
+      ) : (
+        <div>
+          <div className="imagen6">
+            <img src={pokemon} width="250px" alt="img not found" />
+          </div>
 
-      <SearchBar />
+          <Link to="/pokemons/crear">
+            <div className="crearPokemon">
+              <img src={apokemon} className="iconosumar" alt="img not found" />
+            </div>
+          </Link>
 
-      <div className="padre">
-        <div className="Filtrosva">
-          <div className="CantidadPokemons">
-            {allPokemons?.length ? (
-              <p>{allPokemons?.length} POKEMONS CAPTURADOS</p>
+          <SearchBar />
+
+          <div className="padre">
+            <div className="Filtrosva">
+              <div className="CantidadPokemons">
+                {allPokemons?.length ? (
+                  <p>{allPokemons?.length} POKEMONS CAPTURADOS</p>
+                ) : (
+                  <p></p>
+                )}
+              </div>
+            </div>
+            <div className="Paginado">
+              <Paginado
+                pokemonsPorPagina={pokemonsPorPagina}
+                allPokemons={allPokemons?.length}
+                paginado={paginado}
+              />
+            </div>
+
+            <div className="filaorden2">
+              <div className="labelver2"></div>
+              <label className="idelabel">ORDENAR</label>
+              <select
+                name="orden"
+                onChange={(e) => handleOrden(e)}
+                className="select-css"
+                value={filtros.orden}
+              >
+                <option disabled>Nombre</option>
+                <option value="">A - Z</option>
+                <option value="za">Z - A</option>
+                <option disabled>Fuerza</option>
+                <option value="masfuerte">Mayor fuerza</option>
+                <option value="menosfuerte">Menor fuerza</option>
+              </select>
+            </div>
+
+            <div className="filaorden1">
+              <div className="labelver">
+                <label className="idelabel">VER</label>
+              </div>
+              <select
+                name="CANTIDAD"
+                defaultValue={"12"}
+                onChange={(e) => handleCantidad(e)}
+                className="select-css"
+              >
+                <option className="selectoption" value="12">
+                  12
+                </option>
+                <option className="selectoption" value="24">
+                  24
+                </option>
+                <option className="selectoption" value="48">
+                  48
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div className="padre2">
+            <div className="Filtros">
+              <div className="padre3">
+                <div className="Filtros1">
+                  <button
+                    className="buttonfiltros"
+                    onClick={(e) => borrarFiltro(e)}
+                  >
+                    BORRA FILTROS
+                  </button>
+                </div>
+
+                <div className="Filtrostit">
+                  <label className="idelabel">FILTRO POR: </label>
+                </div>
+                <div className="Filtros2">
+                  <div className="ordenlabels">
+                    <label className="idelabel">ORIGEN</label>
+                  </div>
+                  <select
+                    name="creado"
+                    className="select-css"
+                    onChange={(e) => handleFiltros(e)}
+                    value={filtros.creado}
+                  >
+                    <option value="">Todos</option>
+                    <option value="api">Existente</option>
+                    <option value="creado">Creado</option>
+                  </select>
+                </div>
+
+                <div className="Filtros3">
+                  <div className="ordenlabels">
+                    <label className="idelabel">TIPO</label>
+                  </div>
+                  <select
+                    name="Tipo"
+                    onChange={(e) => handleFiltros(e)}
+                    className="select-css"
+                    value={filtros.Tipo}
+                  >
+                    <option value="">Todos</option>
+                    {tiposUsados?.map((tipo) => {
+                      return (
+                        <option value={tipo} key={tipo}>
+                          {tipo}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {allPokemons?.length < 2 && allPokemons?.length > 0 ? (
+              allPokemons?.map((pokemon) => {
+                return (
+                  <div className="cardContainer9" key={pokemon.id}>
+                    <Link
+                      to={`/pokemons/${pokemon.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Card
+                        key={pokemon.name}
+                        name={pokemon.name}
+                        tipo={pokemon.tipo}
+                        imagen={pokemon.img}
+                        fuerza={pokemon.fuerza}
+                      />
+                    </Link>
+                  </div>
+                );
+              })
             ) : (
-              <p></p>
+              <div className="cardContainer" key="999999">
+                {personajesPresentados?.length > 1 ? (
+                  personajesPresentados?.map((pokemon) => {
+                    return (
+                      <div key={pokemon.id}>
+                        <Link
+                          to={`/pokemons/${pokemon.id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Card
+                            key={pokemon.id}
+                            name={pokemon.name}
+                            tipo={pokemon.tipo}
+                            imagen={pokemon.img}
+                            fuerza={pokemon.fuerza}
+                          />
+                        </Link>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div key="1000">
+                    <div className="buscando2" key="10000">
+                      <h1 className="buscando2">No se encontraron pokemons</h1>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
-        </div>
-        <div className="Paginado">
-          <Paginado
-            pokemonsPorPagina={pokemonsPorPagina}
-            allPokemons={allPokemons?.length}
-            paginado={paginado}
-          />
-        </div>
-
-        <div className="filaorden2">
-          <div className="labelver2"></div>
-          <label className="idelabel">ORDENAR</label>
-          <select
-            name="orden"
-            onChange={(e) => handleOrden(e)}
-            className="select-css"
-            value={filtros.orden}
-          >
-            <option disabled>Nombre</option>
-            <option value="">A - Z</option>
-            <option value="za">Z - A</option>
-            <option disabled>Fuerza</option>
-            <option value="masfuerte">Mayor fuerza</option>
-            <option value="menosfuerte">Menor fuerza</option>
-          </select>
-        </div>
-
-        <div className="filaorden1">
-          <div className="labelver">
-            <label className="idelabel">VER</label>
-          </div>
-          <select
-            name="CANTIDAD"
-            defaultValue={"12"}
-            onChange={(e) => handleCantidad(e)}
-            className="select-css"
-          >
-            <option className="selectoption" value="12">
-              12
-            </option>
-            <option className="selectoption" value="24">
-              24
-            </option>
-            <option className="selectoption" value="48">
-              48
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div className="padre2">
-        <div className="Filtros">
-          <div className="padre3">
-            <div className="Filtros1">
-              <button
-                className="buttonfiltros"
-                onClick={(e) => borrarFiltro(e)}
-              >
-                BORRA FILTROS
-              </button>
-            </div>
-
-            <div className="Filtrostit">
-              <label className="idelabel">FILTRO POR: </label>
-            </div>
-            <div className="Filtros2">
-              <div className="ordenlabels">
-                <label className="idelabel">ORIGEN</label>
-              </div>
-              <select
-                name="creado"
-                className="select-css"
-                onChange={(e) => handleFiltros(e)}
-                value={filtros.creado}
-              >
-                <option value="">Todos</option>
-                <option value="api">Existente</option>
-                <option value="creado">Creado</option>
-              </select>
-            </div>
-
-            <div className="Filtros3">
-              <div className="ordenlabels">
-                <label className="idelabel">TIPO</label>
-              </div>
-              <select
-                name="Tipo"
-                onChange={(e) => handleFiltros(e)}
-                className="select-css"
-                value={filtros.Tipo}
-              >
-                <option value="">Todos</option>
-                {tiposUsados?.map((tipo) => {
-                  return (
-                    <option value={tipo} key={tipo}>
-                      {tipo}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
+          <div className="Paginado2">
+            <Paginado
+              pokemonsPorPagina={pokemonsPorPagina}
+              allPokemons={allPokemons?.length}
+              paginado={paginado}
+            />
           </div>
         </div>
-
-        {allPokemons?.length < 2 && allPokemons?.length > 0 ? (
-          allPokemons?.map((pokemon) => {
-            return (
-              <div className="cardContainer9" key={pokemon.id}>
-                <Link
-                  to={`/pokemons/${pokemon.id}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <Card
-                    key={pokemon.name}
-                    name={pokemon.name}
-                    tipo={pokemon.tipo}
-                    imagen={pokemon.img}
-                    fuerza={pokemon.fuerza}
-                  />
-                </Link>
-              </div>
-            );
-          })
-        ) : (
-          <div className="cardContainer" key="999999">
-          {personajesPresentados?.length > 1 ? (
-            personajesPresentados?.map((pokemon) => {
-              return (
-                <div key={pokemon.id}>
-                  <Link
-                    to={`/pokemons/${pokemon.id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Card
-                      key={pokemon.id}
-                      name={pokemon.name}
-                      tipo={pokemon.tipo}
-                      imagen={pokemon.img}
-                      fuerza={pokemon.fuerza}
-                    />
-                  </Link>
-                </div>
-              );
-            })
-          ) : (
-            <div key="1000">
-              <div className="buscando2" key="10000">
-                <h1 className="buscando2">No se encontraron pokemons</h1>
-              </div>
-            </div>
-          )}
-        </div>
-        )}
-      </div>
-      <div className="Paginado2">
-        <Paginado
-          pokemonsPorPagina={pokemonsPorPagina}
-          allPokemons={allPokemons?.length}
-          paginado={paginado}
-        />
-      </div>
+      )}
     </div>
   );
 }

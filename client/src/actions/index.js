@@ -130,3 +130,14 @@ export function eliminarPokemonDB(id) {
     });
   };
 }
+
+/* export function getPokemonsDB() {
+  return async function (dispatch) {
+    const response = await fetch("http://localhost:3001/pokemonesdb");
+    const data = await response.json();
+    dispatch({
+      type: "GETALLPOKEMONSDB",
+      payload: data,
+    });
+  };
+} */

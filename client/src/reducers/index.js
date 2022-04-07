@@ -4,6 +4,8 @@ const initialState = {
   tipos: [],
   filtrostipo: [],
   filtroscreado: [],
+  allPokemonsapi: [],
+  listaPokemonsdb: [],
   vacio: [],
   allBusqueda: [],
   tiposUsados: [],
@@ -37,12 +39,20 @@ function rootReducer(state = initialState, action) {
           unicos.push(elemento);
         }
       }
+      let unicosOrdenado2 = unicos.sort(function (a, b) {
+        if (a > b)
+          {return 1};
+        if (b > a)
+          {return -1};
+        return 0;
+      });
 
       return {
         ...state,
+        allPokemonsapi: [...getPokes],
         pokemons: [...arregloOrdenado2],
         allPokemons: [...arregloOrdenado2],
-        tiposUsados: unicos,
+        tiposUsados: unicosOrdenado2,
       };
 
     case "ELIMARPOKE":
@@ -256,6 +266,28 @@ function rootReducer(state = initialState, action) {
         return { ...state, pokemons: arregloOrdenado };
       }
       break;
+
+/*       case "GETALLPOKEMONSDB":
+        const Pokemonsdb = action.payload;
+        const listaPokemonsapi = state.allPokemonsapi;
+        const todosdb = Pokemonsdb.concat(listaPokemonsapi);
+  
+        if (!todosdb?.length) return { ...state };
+        console.log("Se atraparon " + todosdb.length + " Pokemons");
+  
+        let arregloOrdenado3 = todosdb?.sort(function (a, b) {
+          if (a.name > b.name) return 1;
+          if (b.name > a.name) return -1;
+          return 0;
+        });
+  
+        return {
+          ...state,
+          pokemons: [...arregloOrdenado3],
+          listaPokemonsdb: [...Pokemonsdb],
+          allPokemons: [...arregloOrdenado3],
+        }; */
+
 
     default:
       return state;
