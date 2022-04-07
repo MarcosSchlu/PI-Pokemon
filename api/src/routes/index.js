@@ -167,4 +167,14 @@ router.get("/pokemons/:id", async (req, res) => {
   }
 });
 
+router.delete('/clear/:id', async (req, res) => {
+  const { id } = req.params;
+  let poke = await Pokemon.findOne({where : {id : id}}).catch(e=> {console.log(e.message)})
+  if (!poke) console.log("err") 
+  poke.destroy()
+  res.redirect('/home')
+});
+
+
+
 module.exports = router;

@@ -45,6 +45,9 @@ function rootReducer(state = initialState, action) {
         tiposUsados: unicos,
       };
 
+    case "ELIMARPOKE":
+      return { ...state};
+      
     case "GETTIPOS":
       return { ...state, tipos: action.payload };
     case "GETPOKEMONSID":

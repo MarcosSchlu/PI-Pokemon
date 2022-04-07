@@ -160,3 +160,24 @@
 .icon{
   left: 5px;
 }
+
+.botonbotoneliminar {
+  position: absolute;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: sans-serif;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: rgb(57, 95, 170);
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: black;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 3px 3px 3px white;
+  right: 20vw;
+  top: 38vh;
+}

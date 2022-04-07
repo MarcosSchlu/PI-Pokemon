@@ -120,8 +120,13 @@ export function borrarbusqueda(filtros) {
   };
 }
 
-export function tiposenUso() {
-  return {
-    type: "TIPOSENUSO",
+export function eliminarPokemonDB(id) {
+  return async function (dispatch) {
+    fetch("http://localhost:3001/clear/" + id, {
+      method: 'DELETE',
+    })
+    dispatch({
+      type: "ELIMARPOKE"
+    });
   };
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemonsPorID } from "../actions";
-import { Link, useParams } from "react-router-dom";
+import { getPokemonsPorID, eliminarPokemonDB, getPokemons } from "../actions";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { borrarPokemon } from "../actions";
 import "./Detalle.css";
 import pokemon from "../img/pokemon.png";
@@ -19,6 +19,7 @@ let prevId = 1;
 export default function Detalle() {
   const dispatch = useDispatch();
   const Pokemon = useSelector((state) => state.pokemon);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -31,6 +32,14 @@ export default function Detalle() {
     dispatch(borrarPokemon());
   }
 
+  function handleEliminar(e, id) {
+    e.preventDefault();
+    dispatch(eliminarPokemonDB(id));
+    dispatch(getPokemons());
+    alert("Pokemon elimado de la base de datos");
+    navigate("/home");
+  }
+
   return (
     <div className="all6">
       <div className="imagen7">
@@ -39,90 +48,128 @@ export default function Detalle() {
       <div>
         <Link to={"/home"}>
           <div className="crearPokemon2">
-            <button className="volver" onClick={handleSubmit}>Volver</button>
+            <button className="volver" onClick={handleSubmit}>
+              Volver
+            </button>
           </div>
         </Link>
       </div>
       {Pokemon.length > 0 ? (
         <div className="cardpoke" key={Pokemon[0].id}>
-
-        <div className="imagenpoke">
-          <div className="circulopoke"></div>
-          <img
-          className="imagenpokemon"
-            src={Pokemon[0].img}
-            alt="no se enconto la imagen"
-            width="300px"
-            height="300px"
-          />
+          <div className="imagenpoke">
+            <div className="circulopoke"></div>
+            <img
+              className="imagenpokemon"
+              src={Pokemon[0].img}
+              alt="no se enconto la imagen"
+              width="300px"
+              height="300px"
+            />
           </div>
 
           <div className="infopoke">
+            <div className="titulo2">
+              <h3 className="nombre2">{Pokemon[0].name}</h3>
+              <div className="subrayao2"></div>
+            </div>
 
-          <div className="titulo2">
-          <h3 className="nombre2">{Pokemon[0].name}</h3>
-          <div className="subrayao2"></div>
-          </div>
-
-          <div className="Propiedades">
-
-          <div className="Propiedades1">
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">TIPO</h3>
-          <div className="tipos22">
-            {Pokemon[0].tipo?.map((pokemon) => {
-              return (
-                <div className="perri" key={prevId++}>
-                  <h4 className="propiedaddesc">{pokemon}</h4>
+            <div className="Propiedades">
+              <div className="Propiedades1">
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">TIPO</h3>
+                  <div className="tipos22">
+                    {Pokemon[0].tipo?.map((pokemon) => {
+                      return (
+                        <div className="perri" key={prevId++}>
+                          <h4 className="propiedaddesc">{pokemon}</h4>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-          </div>
 
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">FUERZA</h3>
-          <h4 className="propiedaddesc">{Pokemon[0].fuerza}</h4>
-          <img className="icon" src={fuerza} width="20px" alt="img not found" />
-          </div>
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">FUERZA</h3>
+                  <h4 className="propiedaddesc">{Pokemon[0].fuerza}</h4>
+                  <img
+                    className="icon"
+                    src={fuerza}
+                    width="20px"
+                    alt="img not found"
+                  />
+                </div>
 
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">VIDA</h3>
-          <h4 className="propiedaddesc">{Pokemon[0].vida}</h4>
-          <img className="icon" src={corazon} width="20px" alt="img not found" />
-          </div>
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">VIDA</h3>
+                  <h4 className="propiedaddesc">{Pokemon[0].vida}</h4>
+                  <img
+                    className="icon"
+                    src={corazon}
+                    width="20px"
+                    alt="img not found"
+                  />
+                </div>
+              </div>
 
-          </div>
+              <div className="Propiedades2">
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">DEFENSA</h3>
+                  <h4 className="propiedaddesc">{Pokemon[0].defensa}</h4>
+                  <img
+                    className="icon"
+                    src={escudo}
+                    width="20px"
+                    alt="img not found"
+                  />
+                </div>
 
-          <div className="Propiedades2">
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">DEFENSA</h3>
-          <h4 className="propiedaddesc">{Pokemon[0].defensa}</h4>
-          <img className="icon" src={escudo} width="20px" alt="img not found" />
-          </div>
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">VELOCIDAD</h3>
+                  <h4 className="propiedaddesc">{Pokemon[0].velocidad}</h4>
+                  <img
+                    className="icon"
+                    src={velocidad}
+                    width="20px"
+                    alt="img not found"
+                  />
+                </div>
 
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">VELOCIDAD</h3>
-          <h4 className="propiedaddesc">{Pokemon[0].velocidad}</h4>
-          <img className="icon" src={velocidad} width="20px" alt="img not found" />
-          </div>
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">ALTURA</h3>
+                  <h4 className="propiedaddesc">{Pokemon[0].altura}</h4>
+                  <img
+                    className="icon"
+                    src={altura}
+                    width="20px"
+                    alt="img not found"
+                  />
+                </div>
 
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">ALTURA</h3>
-          <h4 className="propiedaddesc">{Pokemon[0].altura}</h4>
-          <img className="icon" src={altura} width="20px" alt="img not found" />
-          </div>
+                <div className="Propiedad">
+                  <h3 className="propiedadtitle">PESO</h3>
+                  <h4 className="propiedaddesc">{Pokemon[0].peso}</h4>
+                  <img
+                    className="icon"
+                    src={peso}
+                    width="20px"
+                    alt="img not found"
+                  />
+                </div>
 
-          <div className="Propiedad">
-          <h3 className="propiedadtitle">PESO</h3>
-          <h4 className="propiedaddesc">{Pokemon[0].peso}</h4>
-          <img className="icon" src={peso} width="20px" alt="img not found" />
+                {Pokemon.map((Pokemon) => {
+                    return (
+                      <div key={Pokemon}>
+                        { Pokemon.db === true ? 
+                        (<button type="submit" className="botonbotoneliminar" onClick={(e) => handleEliminar(e , Pokemon.id)}>
+                          ELIMINAR
+                        </button>)
+                        :(<div></div>)}
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
-
-          </div>
-          </div>
-          </div>
-
         </div>
       ) : (
         <div>

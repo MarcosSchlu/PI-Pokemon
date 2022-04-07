@@ -6,7 +6,6 @@ import {
   Ordenar,
   getPokemons,
   filtrar,
-  tiposenUso,
   borrarPokemon,
 } from "../actions";
 import "./Home.css";
@@ -45,7 +44,6 @@ export default function Home() {
   useEffect(() => {
     console.log("Atrapando pokemons nuevos....");
     dispatch(borrarPokemon());
-    dispatch(tiposenUso());
     dispatch(getPokemons());
   }, [dispatch]);
 
