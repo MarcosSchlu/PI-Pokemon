@@ -4,8 +4,6 @@ import pokemoncorriendo from "../img/5Q0v.gif";
 import pokemon from "../img/pokemon.png";
 import { Link } from "react-router-dom";
 
-let prevId = 1;
-
 export default function Detalle() {
 
   return (

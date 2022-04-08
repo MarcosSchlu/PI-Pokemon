@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { crearPokemon, getTipos } from "../actions";
+import { crearPokemon, getTipos, getTiposUsados, getPokemons } from "../actions";
 import { Link, useNavigate } from "react-router-dom";
 import "./Crear.css";
 import pokemon from "../img/pokemon.png";
@@ -40,7 +40,9 @@ return errores
 
 const CrearPokemon = () => {
   const [errores, setErrores] = useState({})
+  let todosPokemons3 = useSelector((state) => state.allPokemons);
 
+  
   const [input, setInput] = useState({
     name: "",
     img: "",
@@ -92,26 +94,36 @@ const CrearPokemon = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+    let pokemonBuscado = todosPokemons3?.filter(
+      (pokemons) =>
+        pokemons.name.toLowerCase() === input.name.toLowerCase()
+    );
+
     if(Object.values(errores).length < 1) {
       if(input.name === ""){
         alert("Debe completar el formulario para crear el Pokemon");
       } else {
-        dispatch(crearPokemon(input));
-        alert("Pokemon creado");
-        setInput({
-          name: "",
-          img: "",
-          vida: 0,
-          fuerza: 0,
-          defensa: 0,
-          velocidad: 0,
-          altura: 0,
-          peso: 0,
-          tipo: [],
-        });
-        navigate("/home");
-      }
+        if(pokemonBuscado.length > 0) {
+          alert("El nombre de el Pokemon ya esta en uso");
+        } else {
+          dispatch(crearPokemon(input));
+          dispatch(getPokemons());
+          alert("Pokemon creado");
+          setInput({
+            name: "",
+            img: "",
+            vida: 0,
+            fuerza: 0,
+            defensa: 0,
+            velocidad: 0,
+            altura: 0,
+            peso: 0,
+            tipo: [],
+          });
+          dispatch(getTiposUsados())
+          navigate("/home");
+        }
+        }
     } else {
       alert("Para poder crear el pokemon no debe registrar errores");
     }

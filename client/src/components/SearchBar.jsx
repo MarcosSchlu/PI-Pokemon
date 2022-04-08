@@ -7,6 +7,7 @@ import {
   getPokemonsPorName,
   getPokemonsBusqueda,
   borrarbusqueda,
+  getTiposUsados
 } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -36,6 +37,7 @@ export default function NavBar() {
       console.log("Buscando a " + name);
       dispatch(getPokemonsPorName(name));
       dispatch(borrarbusqueda());
+      dispatch(getTiposUsados())
       setName("");
     }
   }
@@ -45,6 +47,7 @@ export default function NavBar() {
     console.log("Buscando a " + e.target.value);
     dispatch(getPokemonsPorName(e.target.value));
     dispatch(borrarbusqueda());
+    dispatch(getTiposUsados())
     setName("");
   }
 

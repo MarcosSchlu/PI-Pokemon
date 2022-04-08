@@ -29,9 +29,10 @@ function rootReducer(state = initialState, action) {
       let tiposusados = [];
       getPokes?.map((pokemons) =>
         pokemons.tipo.map((tipo) => {
-          tiposusados.push(tipo.replace(/\b\w/g, (l) => l.toUpperCase()));
+          return tiposusados.push(tipo.replace(/\b\w/g, (l) => l.toUpperCase()));
         })
       );
+
       let unicos = [];
       for (var i = 0; i < tiposusados?.length; i++) {
         const elemento = tiposusados[i];
@@ -216,17 +217,19 @@ function rootReducer(state = initialState, action) {
               );
       }
 
+      let filtroCreado = []
       if (action.payload.creado === "") {
-        var filtroCreado = tipofiltro;
+        filtroCreado = tipofiltro;
       } else {
-        var filtroCreado =
+        filtroCreado =
           action.payload.creado === "creado"
             ? tipofiltro?.filter((pokemon) => pokemon.db)
             : tipofiltro?.filter((pokemon) => !pokemon.db);
       }
 
+      let arregloOrdenado = []
       if (action.payload.orden === "masfuerte") {
-        var arregloOrdenado = filtroCreado?.sort(function (a, b) {
+        arregloOrdenado = filtroCreado?.sort(function (a, b) {
           if (a.fuerza > b.fuerza) return -1;
           if (b.fuerza > a.fuerza) return 1;
           return 0;
@@ -234,7 +237,7 @@ function rootReducer(state = initialState, action) {
         return { ...state, pokemons: arregloOrdenado };
       }
       if (action.payload.orden === "menosfuerte") {
-        var arregloOrdenado = filtroCreado?.sort(function (a, b) {
+        arregloOrdenado = filtroCreado?.sort(function (a, b) {
           if (a.fuerza > b.fuerza) return 1;
           if (b.fuerza > a.fuerza) return -1;
           return 0;
@@ -242,7 +245,7 @@ function rootReducer(state = initialState, action) {
         return { ...state, pokemons: arregloOrdenado };
       }
       if (action.payload.orden === "") {
-        var arregloOrdenado = filtroCreado?.sort(function (a, b) {
+        arregloOrdenado = filtroCreado?.sort(function (a, b) {
           if (a.name > b.name) {
             return 1;
           }
@@ -254,7 +257,7 @@ function rootReducer(state = initialState, action) {
         return { ...state, pokemons: arregloOrdenado };
       }
       if (action.payload.orden === "za") {
-        var arregloOrdenado = filtroCreado?.sort(function (a, b) {
+        arregloOrdenado = filtroCreado?.sort(function (a, b) {
           if (a.name > b.name) {
             return -1;
           }
@@ -263,9 +266,42 @@ function rootReducer(state = initialState, action) {
           }
           return 0;
         });
+
         return { ...state, pokemons: arregloOrdenado };
       }
       break;
+
+
+      case "GETTIPOSUSADOS":
+        const allPokemons = state.pokemons;
+        let tiposusados3 = [];
+        allPokemons?.map((pokemons) =>
+          pokemons.tipo.map((tipo) => {
+            return tiposusados3.push(tipo.replace(/\b\w/g, (l) => l.toUpperCase()));
+          })
+        );
+  
+        let unicos3 = [];
+        for (var i = 0; i < tiposusados3?.length; i++) {
+          const elemento = tiposusados3[i];
+          if (!unicos3.includes(tiposusados3[i])) {
+            unicos3.push(elemento);
+          }
+        }
+        let unicosOrdenado3 = unicos3.sort(function (a, b) {
+          if (a > b)
+            {return 1};
+          if (b > a)
+            {return -1};
+          return 0;
+        });
+
+        return {
+          ...state,
+          tiposUsados: unicosOrdenado3,
+        };
+
+
 
 /*       case "GETALLPOKEMONSDB":
         const Pokemonsdb = action.payload;

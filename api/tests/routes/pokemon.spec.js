@@ -19,18 +19,21 @@ describe("POKEMON ROUTES", () => {
     Pokemon.sync({ force: true }).then(() => Pokemon.create(pokemon))
   );
   describe("GET /pokemons", () => {
-    it("DEBE DEVOLVER STATUS 200", () => agent.get("/pokemons").expect(200));
+    it("DEBE DEVOLVER STATUS 200", (done) => {
+      agent.get("/pokemons").then(() => done());
+    });
   });
   describe("GET /pokemons/:id", () => {
-    it("SE ESPERA UN STATUS 200 SI SE PASA UN ID", () =>
-      agent.get("/pokemons/4").expect(200));
+    it("SE ESPERA UN STATUS 200 SI SE PASA UN ID", (done) => {
+      agent.get("/pokemons/4").then(() => done());
+    });
   });
   describe("GET /pokemons?name=", () => {
-    it("SE ESPERA UN STATUS 200 SI SE PASA UN NOMBRE DE POKEMONS EXISTENTE", () =>
-      agent.get("/pokemons?name=Pikachu").expect(200));
+    it("SE ESPERA UN STATUS 200 SI SE PASA UN NOMBRE DE POKEMONS EXISTENTE", (done) => {
+      agent.get("/pokemons?name=Pikachu").then(() => done());
+    });
   });
 });
-
 describe("TYPES ROUTES", () => {
   before(() =>
     conn.authenticate().catch((err) => {
@@ -41,6 +44,8 @@ describe("TYPES ROUTES", () => {
     Pokemon.sync({ force: true }).then(() => Pokemon.create(pokemon))
   );
   describe("GET /types", () => {
-    it("DEBE DEVOLVER STATUS 200", () => agent.get("/types").expect(200));
+    it("DEBE DEVOLVER STATUS 200", (done) => {
+      agent.get("/types").then(() => done());
+    });
   });
 });

@@ -7,7 +7,7 @@ import {
   getPokemons,
   filtrar,
   borrarPokemon,
-  /* getPokemonsDB */
+  getTiposUsados
 } from "../actions";
 import "./Home.css";
 import { Link } from "react-router-dom";
@@ -48,6 +48,7 @@ export default function Home() {
     dispatch(getPokemons());
     dispatch(borrarPokemon());
     console.log("Atrapando pokemons nuevos....");
+    dispatch(getTiposUsados())
   }, [dispatch]);
 
   function borrarFiltro(e) {
@@ -57,6 +58,7 @@ export default function Home() {
     setFiltros((prevFiltros) => {
       const newFiltros = { ...prevFiltros, creado: "", Tipo: "" };
       setPaginaActual(1);
+      dispatch(getTiposUsados())
       return newFiltros;
     });
   }
@@ -73,6 +75,7 @@ export default function Home() {
       const newFiltros = { ...prevFiltros, [e.target.name]: e.target.value };
       dispatch(filtrar(newFiltros));
       setPaginaActual(1);
+      dispatch(getTiposUsados())
       return newFiltros;
     });
   }
@@ -89,7 +92,7 @@ export default function Home() {
       {allPokemones?.length < 1 ? (
         <div>
           <div className="buscando2" key="10000">
-            <h1 className="buscando2">No se encontraron pokemons</h1>
+            <h1 className="buscando2">UPDATE</h1>
           </div>
         </div>
       ) : (

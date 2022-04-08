@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemonsPorID, eliminarPokemonDB, getPokemons } from "../actions";
+import { getPokemonsPorID, eliminarPokemonDB, getPokemons, getTiposUsados } from "../actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { borrarPokemon } from "../actions";
 import "./Detalle.css";
@@ -36,6 +36,7 @@ export default function Detalle() {
     e.preventDefault();
     dispatch(eliminarPokemonDB(id));
     dispatch(getPokemons());
+    dispatch(getTiposUsados());
     alert("Pokemon elimado de la base de datos");
     navigate("/home");
   }

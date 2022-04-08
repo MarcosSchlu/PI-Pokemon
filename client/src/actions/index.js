@@ -131,6 +131,12 @@ export function eliminarPokemonDB(id) {
   };
 }
 
+export function getTiposUsados() {
+  return {
+    type: "GETTIPOSUSADOS",
+  };
+}
+
 /* export function getPokemonsDB() {
   return async function (dispatch) {
     const response = await fetch("http://localhost:3001/pokemonesdb");
