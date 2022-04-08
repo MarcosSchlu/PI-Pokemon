@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import { getPokemons, getTiposUsados } from './actions'
+import { getPokemons, getTiposUsados, getTipos } from './actions'
 import { useDispatch } from "react-redux";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
@@ -16,6 +16,7 @@ function App() {
   useEffect(() => {
     dispatch(getPokemons());
     dispatch(getTiposUsados())
+    dispatch(getTipos())
   }, [dispatch]);
 
   return (
